@@ -1,7 +1,7 @@
 Feature: Others tests
   Background: Navigate to Others Page
     Given I open url of homepage
-    When I click a button Others
+    When I click nav button "Others"
 
   @regression @US2001
   Scenario: Disabled button is working as expected

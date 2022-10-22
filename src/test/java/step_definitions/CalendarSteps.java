@@ -11,16 +11,19 @@ public class CalendarSteps implements CommonPage {
     CalendarPage page;
 
     public CalendarSteps(){
+
         this.page = new CalendarPage();
     }
 
     @When("I click a button endDateInput")
     public void i_click_a_button_end_date_input() {
+
         BrowserUtils.click(page.endDateInput);
     }
 
     @When("I click a button endDateCalendar")
     public void i_click_a_button_end_date_calendar() {
+
         BrowserUtils.click(page.endDateCalendar);
     }
 
