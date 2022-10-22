@@ -1,4 +1,4 @@
-Feature: Multiple window Tests
+Feature: Multiple Window Page Tests
 
   Background: Navigate to Multiple-window Page
     Given I open url of homepage

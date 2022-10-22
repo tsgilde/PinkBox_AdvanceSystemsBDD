@@ -139,11 +139,18 @@ public class BrowserUtils {
         Assert.assertTrue(result);
     }
 
-    public static boolean isDisplayed(WebElement element){
+//    public static boolean isDisplayed(WebElement element){
+//        waitForElementVisibility(element);
+//        moveIntoView(element);
+//        highlightElement(element);
+//        return element.isDisplayed();
+//    }
+
+    public static void isDisplayed(WebElement element){
         waitForElementVisibility(element);
         moveIntoView(element);
         highlightElement(element);
-        return element.isDisplayed();
+        Assert.assertTrue(element.isDisplayed());
     }
 
     public static boolean isEnabled(WebElement element){
