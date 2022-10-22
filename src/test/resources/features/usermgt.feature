@@ -10,3 +10,10 @@ Feature: User Mgt page scenarios
   @US4002
   Scenario: Login button test
     Then Verify Login button is present
+
+  @US4004
+  Scenario: Verify following input fields are displayed on the page
+    Then Verify First Name input field is displayed
+    Then Verify Last Name input field is displayed
+    Then Verify Phone Number input field is displayed
+    Then Verify E-mail input field is displayed

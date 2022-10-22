@@ -113,4 +113,14 @@ public class HomeSteps implements CommonPage {
     public void verifyLinkTextHomeIsDisplayed() {
 
     }
+
+    @When("I click a button Multiple-Window")
+    public void iClickAButtonMultipleWindow() {
+        BrowserUtils.click(
+                BrowserUtils.getDriver().findElement(
+                        By.xpath(String.format(XPATH_TEMPLATE_LINKTEXT, "Multiple-window")))
+        );
+    }
+
+
 }

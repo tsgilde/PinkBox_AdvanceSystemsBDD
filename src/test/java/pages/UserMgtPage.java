@@ -16,4 +16,18 @@ public class UserMgtPage {
 
     @FindBy(id = "practice-form")
     public WebElement loginBtn;
+
+    @FindBy(id = "Firstname")
+    public WebElement firstNameInput;
+
+    @FindBy(id = "Lastname")
+    public WebElement lastNameInput;
+
+    @FindBy(id = "Phonenumber")
+    public WebElement phoneInput;
+
+    @FindBy(id = "Email")
+    public WebElement emailInput;
+
+
 }
