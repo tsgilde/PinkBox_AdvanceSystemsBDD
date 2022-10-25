@@ -29,5 +29,8 @@ public class UserMgtPage {
     @FindBy(id = "Email")
     public WebElement emailInput;
 
+    @FindBy(id = "Select-role")
+    public WebElement selectRole;
+
 
 }

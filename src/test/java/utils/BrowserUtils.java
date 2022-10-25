@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
@@ -171,11 +172,17 @@ public class BrowserUtils {
         }
     }
 
-    public static void switchToNewWindow(WebDriver driver){
+    public static void switchToNewWindow(){
         for(String each: driver.getWindowHandles()){
             if (!each.equals(driver.getWindowHandle()))
                 driver.switchTo().window(each);
         }
+    }
+
+
+    public static void selectByVisibleText(WebElement element, String text){
+        Select select = new Select(element);
+        select.selectByVisibleText(text);
     }
 
 

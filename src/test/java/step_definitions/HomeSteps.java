@@ -181,5 +181,16 @@ public class HomeSteps implements CommonPage {
         BrowserUtils.click(BrowserUtils.getDriver().findElement(
                 By.xpath(String.format(XPATH_TEMPLATE_LINKTEXT, button))));
     }
+
+    @When("I click link text {string}")
+    public void iClickLinkText(String linkText) {
+        BrowserUtils.click(BrowserUtils.getDriver().findElement(By.linkText(linkText)));
+    }
+
+    @Then("Verify destination window has url as {string}")
+    public void verifyDestinationWindowHasUrlAs(String URL) {
+        BrowserUtils.switchToNewWindow();
+        BrowserUtils.assertEquals(BrowserUtils.getDriver().getCurrentUrl(), URL);
+    }
 }
 

@@ -9,3 +9,19 @@ Feature: Multiple Window Page Tests
       Then Verify "Launch TLA" button is enabled
       Then Verify "Launch Google" button is enabled
       Then Verify "Launch Facebook" button is enabled
+
+  @US9001b
+  Scenario: Verify social media buttons are enabled 2
+    Then Verify following link texts are displayed:
+      | Launch TLA      |
+      | Launch Google   |
+      | Launch Facebook |
+
+  @US9001c
+  Scenario Outline: Verify social media buttons are enabled using scenario Outline
+    Then Verify link text "<button>" is displayed
+    Examples:
+      | button          |
+      | Launch TLA      |
+      | Launch Google   |
+      | Launch Facebook |

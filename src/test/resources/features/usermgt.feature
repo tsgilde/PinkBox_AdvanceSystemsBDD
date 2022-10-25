@@ -17,3 +17,21 @@ Feature: User Mgt page scenarios
     Then Verify "Last Name" input field is displayed
     Then Verify "Phone Number" input field is displayed
     Then Verify "E-mail" input field is displayed
+
+  @US4004b
+  Scenario: Verify following input fields are displayed on the page 2
+    Then Verify following input fields are displayed:
+      | First Name   |
+      | Last Name    |
+      | Phone Number |
+      | E-mail       |
+
+  @US4010
+  Scenario: Add new User to staging table
+    When I fill out user registration form with following info:
+      | First Name   | John                  |
+      | Last Name    | Wick                  |
+      | Phone Number | 666-666-6666          |
+      | E-mail       | j.wick@contractor.gov |
+      | role         | Mentor                |
+    And I click a button "Submit"

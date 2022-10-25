@@ -6,6 +6,8 @@ import pages.CommonPage;
 import pages.MultipleWindowPage;
 import utils.BrowserUtils;
 
+import java.util.List;
+
 public class MultipleWindowSteps implements CommonPage {
 
     MultipleWindowPage page;
@@ -46,5 +48,17 @@ public class MultipleWindowSteps implements CommonPage {
                 BrowserUtils.getDriver().findElement(
                         By.xpath(String.format(XPATH_TEMPLATE_LINKTEXT, buttonName)))
         );
+    }
+
+
+    @Then("Verify following link texts are displayed:")
+    public void verifyFollowingLinkTextsAreDisplayed(List<String> data) {
+        for(String each: data){
+            BrowserUtils.isDisplayed(
+                    BrowserUtils.getDriver().findElement(By.xpath(
+                            String.format(XPATH_TEMPLATE_LINKTEXT, each)
+                    ))
+            );
+        }
     }
 }
