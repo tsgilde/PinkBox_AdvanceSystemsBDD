@@ -90,6 +90,7 @@ public class BrowserUtils {
                     js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, "color: black;" +
                             "border: 3px solid red; background: yellow");
                     //TODO:apply report screenshot here
+                    CucumberLogUtils.logInfo(element.toString(), ConfigReader.readProperty("takeScreenshot"));
                 } else {
                     sleep(600);
                     js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, "");
