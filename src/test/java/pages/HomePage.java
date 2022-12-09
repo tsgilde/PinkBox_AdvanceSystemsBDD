@@ -25,4 +25,6 @@ public class HomePage {
     @FindBy(id = "title")
     public WebElement headerTitle;
 
+    @FindBy(xpath = "(//div[@class = 'owl-stage-outer'])[3]")
+    public WebElement companyNames;
 }

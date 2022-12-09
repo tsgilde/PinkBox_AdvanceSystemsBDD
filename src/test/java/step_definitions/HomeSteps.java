@@ -87,6 +87,10 @@ public class HomeSteps implements CommonPage {
         BrowserUtils.switchToNewWindow();
         BrowserUtils.assertEquals(BrowserUtils.getDriver().getCurrentUrl(), URL);
     }
+    @Then("Verify company names is displayed in {int} row.")
+    public void verifyCompanyNamesIsDisplayedInRow(int arg0) {
+        BrowserUtils.isDisplayed(page.companyNames);
+    }
 }
 
 
