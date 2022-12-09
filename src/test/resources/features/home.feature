@@ -19,5 +19,3 @@ Feature: Home page tests
       | Spanish   |
       | French    |
 
-
-

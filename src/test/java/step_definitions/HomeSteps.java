@@ -43,6 +43,7 @@ public class HomeSteps implements CommonPage {
         for (WebElement each : page.languages) {
             temp.add(each.getText());
         }
+
         Assert.assertTrue(temp.contains(language));
     }
 }

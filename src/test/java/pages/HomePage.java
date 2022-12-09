@@ -18,4 +18,5 @@ public class HomePage {
 
     @FindBy(xpath = "//ul[@class='dropdown-menu style-one']//a")
     public List<WebElement> languages;
+
 }
