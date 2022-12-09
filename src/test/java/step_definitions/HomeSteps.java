@@ -19,6 +19,7 @@ public class HomeSteps implements CommonPage {
     public HomeSteps() {
         page = new HomePage();
        }
+
     @Given("I open url to homepage")
     public void iOpenUrlOfHomepage() {
         BrowserUtils.getDriver();
@@ -71,4 +72,21 @@ public class HomeSteps implements CommonPage {
                 )
         );
     }
+    @Then("Then Verify following input fields are displayed:")
+    public void thenVerifyFollowingInputFieldsAreDisplayed() {
+        BrowserUtils.isDisplayed(page.socialMediabtn);
+    }
+
+    @When("I click link text {string}")
+    public void iClickLinkText(String linkText) {
+        BrowserUtils.click(BrowserUtils.getDriver().findElement(By.linkText(linkText)));
+    }
+
+    @Then("Verify destination window has url as {string}")
+    public void verifyDestinationWindowHasUrlAs(String URL) {
+        BrowserUtils.switchToNewWindow();
+        BrowserUtils.assertEquals(BrowserUtils.getDriver().getCurrentUrl(), URL);
+    }
 }
+
+
