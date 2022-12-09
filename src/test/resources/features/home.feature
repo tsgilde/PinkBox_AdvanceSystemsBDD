@@ -3,13 +3,21 @@ Feature: Home page tests
   Background: Navigate to Home page
     Given I open url to homepage
 
-  @US07a @regression
+  @ASP-3 @smoke
+  Scenario: I would like to display our address and phone number under the main navigation bar
+    When I verify the home page is display the contact info
+
+  @ASP-6 @smoke @regression
+  Scenario: Test header of the home page
+    Then Verify header text is "Advance Systems - Home"
+
+  @ASP-7a @regression
   Scenario: Test navigation bar buttons are displayed
     Then Verify button "Get Support" is displayed
     Then Verify button "Job Career" is displayed
     Then Verify button "Feedback" is displayed
 
-  @US07b @regression
+  @ASP-7b @regression
   Scenario Outline: Test language selection in navigation bar
     When I click on language button
     Then I should see "<Languages>" in dropdown menu
@@ -18,6 +26,20 @@ Feature: Home page tests
       | English   |
       | Spanish   |
       | French    |
+
+  @ASP-11 @smoke
+    Scenario Outline: Verify What to expect section
+    Then I verify "<what to expect>"  section is displayed
+    Examples:
+    | what to expect                |
+    | Leadership Development        |
+    | Capability Building           |
+    | Rewards & Benefits            |
+    | Employee & Employer           |
+    | Relations                     |
+    | Excellent Customer Service    |
+
+
 
 
 

@@ -24,6 +24,21 @@ public class HomeSteps implements CommonPage {
         BrowserUtils.getDriver();
     }
 
+    @When("I verify the home page is display the contact info")
+    public void iVerifyTheHomePageIsDisplayTheContactInfo() {
+        List<WebElement> each = BrowserUtils.getDriver().findElements(By.xpath("//div[@class=\"info-box-one\"]"));
+        for(WebElement list : each){
+            BrowserUtils.isDisplayed(list);
+            System.out.println(list.getText());
+        }
+    }
+
+    @Then("Verify header text is {string}")
+    public void verifyHeaderTextIs(String url) {
+        BrowserUtils.assertEquals(BrowserUtils.getDriver().getTitle(), url);
+    }
+
+
     @Then("Verify button {string} is displayed")
     public void verifyButtonIsDisplayed(String button) {
         BrowserUtils.isDisplayed(
@@ -46,5 +61,14 @@ public class HomeSteps implements CommonPage {
 
         Assert.assertTrue(temp.contains(language));
 
+    }
+
+    @Then("I verify {string}  section is displayed")
+    public void iVerifySectionIsDisplayed(String header) {
+        BrowserUtils.isDisplayed(
+                BrowserUtils.getDriver().findElement(
+                        By.xpath(String.format(XPATH_TEMPLATE_TEXT, header))
+                )
+        );
     }
 }
