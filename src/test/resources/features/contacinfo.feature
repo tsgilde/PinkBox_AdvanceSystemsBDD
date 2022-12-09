@@ -1,4 +1,4 @@
-Feature: Verify the contact info is dislplay
+Feature: Verify the contact info is displayed
 
 
 
