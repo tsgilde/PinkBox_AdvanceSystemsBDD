@@ -2,6 +2,7 @@ package step_definitions;
 
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.ListCompaniesPage;
 import utils.BrowserUtils;
@@ -15,14 +16,12 @@ public class ListCompaniesSteps {
         page = new ListCompaniesPage();
     }
 
-    @When("I verify the list of companies names it should be displayed")
-    public void iVerifyTheListOfCompaniesNamesItShouldBeDisplayed() {
-        List<String> temp = new ArrayList<>();
-        for (WebElement img : page.list) {
-            temp.add(img.getAttribute("alt"));
+
+
+    @When("I verify the list of companies names it should be displayed {int} row")
+    public void iVerifyTheListOfCompaniesNamesItShouldBeDisplayedRow(int number) {
+        if (page.list.getText().length() == number){
+            BrowserUtils.isDisplayed(page.list);
         }
-        BrowserUtils.isDisplayed(temp.contains("Awesome Image"));
-
-
     }
 }

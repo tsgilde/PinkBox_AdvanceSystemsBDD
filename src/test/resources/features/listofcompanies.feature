@@ -6,4 +6,4 @@ Feature: List of the companies name
 
    @ASP-13
     Scenario: List of the companies name should be displayed in the footer
-      When I verify the list of companies names it should be displayed
+      When I verify the list of companies names it should be displayed 1 row

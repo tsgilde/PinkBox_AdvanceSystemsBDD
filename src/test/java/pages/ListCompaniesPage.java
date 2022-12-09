@@ -11,6 +11,6 @@ public class ListCompaniesPage {
     public ListCompaniesPage() {
         PageFactory.initElements(BrowserUtils.getDriver(), this);
     }
-    @FindBy(xpath = "(//div[@class='owl-stage'])[3]//img")
-    public List<WebElement> list;
+    @FindBy(xpath = "(//div[@class='owl-stage-outer'])[3]")
+    public WebElement list;
 }
