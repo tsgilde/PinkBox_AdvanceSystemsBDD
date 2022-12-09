@@ -39,7 +39,21 @@ Feature: Home page tests
     | Relations                     |
     | Excellent Customer Service    |
 
+  @ASP-15
+  Scenario Outline:  Verify practice website destination url
+    When I click link text "<linkText>"
+    Then Verify destination window has url as "<URL>"
+    Examples:
+      | linkText   | URL                                                                 |
+      | Home       | https://tla-batch-6.github.io/advance-systems-test-b6/index.html    |
+      | About Us   | https://tla-batch-6.github.io/advance-systems-test-b6/about.html    |
+      | Services   | https://tla-batch-6.github.io/advance-systems-test-b6/services.html |
+      | Clients    | https://tla-batch-6.github.io/advance-systems-test-b6/clients.html  |
+      | Contact Us | https://tla-batch-6.github.io/advance-systems-test-b6/contact.html  |
 
+  @ASP-13 @regression
+  Scenario: Verify above the footer there should be displayed company names in 1 row.
+    Then Verify company names is displayed in 1 row.
 
 
 

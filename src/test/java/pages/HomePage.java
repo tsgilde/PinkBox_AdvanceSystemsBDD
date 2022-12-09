@@ -18,4 +18,13 @@ public class HomePage {
 
     @FindBy(xpath = "//ul[@class='dropdown-menu style-one']//a")
     public List<WebElement> languages;
+
+    @FindBy(xpath = "//ul[@class='social-icon-six']")
+    public WebElement socialMediabtn;
+
+    @FindBy(id = "title")
+    public WebElement headerTitle;
+
+    @FindBy(xpath = "(//div[@class = 'owl-stage-outer'])[3]")
+    public WebElement companyNames;
 }
