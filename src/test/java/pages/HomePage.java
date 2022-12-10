@@ -27,4 +27,20 @@ public class HomePage {
 
     @FindBy(xpath = "(//div[@class = 'owl-stage-outer'])[3]")
     public WebElement companyNames;
+
+
+    @FindBy(xpath = "//span[@class='right_arrow icon-arrows']")
+    public WebElement next_nav;
+
+    @FindBy(xpath = "//div[@class='owl-item active']//h3")
+    public WebElement activeName;
+
+    @FindBy(xpath = "//div[@class='owl-item active']//div[@class='text']")
+    public WebElement activeText;
+
+    @FindBy(xpath = "//div[@class='owl-item']//h3")
+    public List<WebElement> listOfName;
+
+    public String socialMediaBtn = "//ul[@class='social-icon-six']//a[contains(@href, '%s')]";
+
 }
