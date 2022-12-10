@@ -96,6 +96,7 @@ public class HomeSteps implements CommonPage {
     public void verifyCompanyNamesIsDisplayedInRow(int arg0) {
         BrowserUtils.isDisplayed(page.companyNames);
     }
+
     @Then("Verify header text is {string} is displayed")
     public void verifyHeaderTextIsIsDisplayed(String text) {
         BrowserUtils.isDisplayed(
@@ -148,6 +149,19 @@ public class HomeSteps implements CommonPage {
 
     }
 
+
+    @When("I click a {string} button")
+    public void iClickAButton(String button) {
+        BrowserUtils.click(BrowserUtils.getDriver().findElement(
+                By.xpath(String.format(XPATH_TEMPLATE_HREF_CONTAINS, button))));
+    }
+
+    @Then("It should take me to corresponding page. {string}")
+    public void itShouldTakeMeToCorrespondingPage(String socialMedia) {
+        BrowserUtils.switchToNewWindow();
+        BrowserUtils.assertEquals(BrowserUtils.getDriver().findElement(
+                By.xpath("//meta[@property='og:site_name']")).getAttribute("content"), socialMedia);
+    }
 }
 
 

@@ -27,6 +27,17 @@ Feature: Home page tests
       | Spanish   |
       | French    |
 
+  @ASP-10 @Regression
+  Scenario Outline: Verify Social media options
+    When I click a "<social media link>" button
+    Then It should take me to corresponding page. "<social media name>"
+    Examples:
+      | social media link     | social media name |
+      | https://facebook.com  | Facebook          |
+      | https://twitter.com   | Twitter           |
+      | https://instagram.com | Instagram         |
+      | https://linkedin.com  | LinkedIn          |
+
   @ASP-11 @smoke
     Scenario Outline: Verify What to expect section
     Then I verify "<what to expect>"  section is displayed
@@ -46,6 +57,7 @@ Feature: Home page tests
   @ASP-12b
   Scenario: Test the actual testimonials
     Then Verify that each testimonial has message displayed
+
 
   @ASP-13 @regression
   Scenario: Verify above the footer there should be displayed company names in 1 row.
