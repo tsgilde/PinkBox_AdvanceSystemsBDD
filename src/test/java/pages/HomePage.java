@@ -41,4 +41,5 @@ public class HomePage {
     @FindBy(xpath = "//div[@class='owl-item']//h3")
     public List<WebElement> listOfName;
 
+    public String socialMediaBtn = "//ul[@class='social-icon-six']//a[contains(@href, '%s')]";
 }

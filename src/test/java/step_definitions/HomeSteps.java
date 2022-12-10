@@ -136,6 +136,18 @@ public class HomeSteps implements CommonPage {
         }
     }
 
+    @Then("Verify social media button {string} is displayed")
+    public void verifySocialMediaButtonIsDisplayed(String button) {
+        String link = BrowserUtils.getDriver().findElement(By.xpath(
+                String.format(page.socialMediaBtn, button.toLowerCase()))).getAttribute("href");
+
+        BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(By.xpath(
+                String.format(page.socialMediaBtn, button.toLowerCase()))));
+
+        BrowserUtils.assertTrue(link.contains(button.toLowerCase()));
+
+    }
+
 }
 
 

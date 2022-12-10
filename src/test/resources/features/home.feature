@@ -47,6 +47,10 @@ Feature: Home page tests
   Scenario: Test the actual testimonials
     Then Verify that each testimonial has message displayed
 
+  @ASP-13 @regression
+  Scenario: Verify above the footer there should be displayed company names in 1 row.
+    Then Verify company names is displayed in 1 row.
+
   @ASP-15
   Scenario Outline:  Verify practice website destination url
     When I click link text "<linkText>"
@@ -59,9 +63,16 @@ Feature: Home page tests
       | Clients    | https://tla-batch-6.github.io/advance-systems-test-b6/clients.html  |
       | Contact Us | https://tla-batch-6.github.io/advance-systems-test-b6/contact.html  |
 
-  @ASP-13 @regression
-  Scenario: Verify above the footer there should be displayed company names in 1 row.
-    Then Verify company names is displayed in 1 row.
+  @ASP-16
+  Scenario Outline: Test social media buttons in the footer section
+    Then Verify social media button "<social media>" is displayed
+    Examples:
+      | social media |
+      | Facebook     |
+      | Twitter      |
+      | Skype        |
+      | LinkedIn     |
+
 
 
 
