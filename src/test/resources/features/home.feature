@@ -50,6 +50,15 @@ Feature: Home page tests
     | Relations                     |
     | Excellent Customer Service    |
 
+  @ASP-12a
+  Scenario: Test testimonials which should be displayed actual testimonials by different people
+    Then Verify header text is "Words from our Clients" is displayed
+
+  @ASP-12b
+  Scenario: Test the actual testimonials
+    Then Verify that each testimonial has message displayed
+
+
   @ASP-13 @regression
   Scenario: Verify above the footer there should be displayed company names in 1 row.
     Then Verify company names is displayed in 1 row.
@@ -66,6 +75,15 @@ Feature: Home page tests
       | Clients    | https://tla-batch-6.github.io/advance-systems-test-b6/clients.html  |
       | Contact Us | https://tla-batch-6.github.io/advance-systems-test-b6/contact.html  |
 
+  @ASP-16
+  Scenario Outline: Test social media buttons in the footer section
+    Then Verify social media button "<social media>" is displayed
+    Examples:
+      | social media |
+      | Facebook     |
+      | Twitter      |
+      | Skype        |
+      | LinkedIn     |
 
 
 

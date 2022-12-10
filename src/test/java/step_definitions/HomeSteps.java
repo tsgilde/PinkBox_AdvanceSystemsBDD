@@ -6,15 +6,20 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.CommonPage;
 import pages.HomePage;
 import utils.BrowserUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomeSteps implements CommonPage {
     HomePage page;
+    WebDriverWait wait;
     
     public HomeSteps() {
         page = new HomePage();
@@ -91,6 +96,59 @@ public class HomeSteps implements CommonPage {
     public void verifyCompanyNamesIsDisplayedInRow(int arg0) {
         BrowserUtils.isDisplayed(page.companyNames);
     }
+
+    @Then("Verify header text is {string} is displayed")
+    public void verifyHeaderTextIsIsDisplayed(String text) {
+        BrowserUtils.isDisplayed(
+                BrowserUtils.getDriver().findElement(
+                        By.xpath(String.format(XPATH_TEMPLATE_TEXT, text)))
+        );
+    }
+
+    @Then("Verify that each testimonial has message displayed")
+    public void verifyThatEachTestimonialHasMessageDisplayed() {
+        Map<String, String> nameAndText = new LinkedHashMap<>();
+        String currentName = "";
+        String currentText = "";
+
+        wait = new WebDriverWait(BrowserUtils.getDriver(), 10);
+
+        try {
+            while (nameAndText.size() < page.listOfName.size()) {
+                if (nameAndText.containsKey(currentName)) {
+                    page.next_nav.click();
+                }
+
+                wait.until(ExpectedConditions.visibilityOf(page.activeText));
+                currentName = page.activeName.getText();
+                currentText = page.activeText.getText();
+
+                if (!nameAndText.containsKey(currentName)) {
+                    nameAndText.put(currentName, currentText);
+                }
+                Thread.sleep(3000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        for (String ea : nameAndText.keySet()) {
+            Assert.assertTrue(!nameAndText.get(ea).isEmpty());
+        }
+    }
+
+    @Then("Verify social media button {string} is displayed")
+    public void verifySocialMediaButtonIsDisplayed(String button) {
+        String link = BrowserUtils.getDriver().findElement(By.xpath(
+                String.format(page.socialMediaBtn, button.toLowerCase()))).getAttribute("href");
+
+        BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(By.xpath(
+                String.format(page.socialMediaBtn, button.toLowerCase()))));
+
+        BrowserUtils.assertTrue(link.contains(button.toLowerCase()));
+
+    }
+
 
     @When("I click a {string} button")
     public void iClickAButton(String button) {
