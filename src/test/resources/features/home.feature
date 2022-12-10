@@ -39,6 +39,14 @@ Feature: Home page tests
     | Relations                     |
     | Excellent Customer Service    |
 
+  @ASP-12a
+  Scenario: Test testimonials which should be displayed actual testimonials by different people
+    Then Verify header text is "Words from our Clients" is displayed
+
+  @ASP-12b
+  Scenario: Test the actual testimonials
+    Then Verify that each testimonial has message displayed
+
   @ASP-15
   Scenario Outline:  Verify practice website destination url
     When I click link text "<linkText>"
