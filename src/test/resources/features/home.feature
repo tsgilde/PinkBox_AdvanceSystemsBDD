@@ -27,6 +27,17 @@ Feature: Home page tests
       | Spanish   |
       | French    |
 
+  @ASP-10 @Regression
+  Scenario Outline: Verify Social media options
+    When I click a "<social media link>" button
+    Then It should take me to corresponding page. "<social media name>"
+    Examples:
+      | social media link     | social media name |
+      | https://facebook.com  | Facebook          |
+      | https://twitter.com   | Twitter           |
+      | https://instagram.com | Instagram         |
+      | https://linkedin.com  | LinkedIn          |
+
   @ASP-11 @smoke
     Scenario Outline: Verify What to expect section
     Then I verify "<what to expect>"  section is displayed
@@ -38,6 +49,10 @@ Feature: Home page tests
     | Employee & Employer           |
     | Relations                     |
     | Excellent Customer Service    |
+
+  @ASP-13 @regression
+  Scenario: Verify above the footer there should be displayed company names in 1 row.
+    Then Verify company names is displayed in 1 row.
 
   @ASP-15
   Scenario Outline:  Verify practice website destination url
@@ -51,9 +66,7 @@ Feature: Home page tests
       | Clients    | https://tla-batch-6.github.io/advance-systems-test-b6/clients.html  |
       | Contact Us | https://tla-batch-6.github.io/advance-systems-test-b6/contact.html  |
 
-  @ASP-13 @regression
-  Scenario: Verify above the footer there should be displayed company names in 1 row.
-    Then Verify company names is displayed in 1 row.
+
 
 
 
