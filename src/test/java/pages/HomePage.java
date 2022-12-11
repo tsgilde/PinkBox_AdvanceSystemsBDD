@@ -59,5 +59,11 @@ public class HomePage {
     @FindBy(xpath = "//li[contains(@class, 'active')]//a[contains(text(),'Read More')]")
     public WebElement readMoreBtn;
 
+    @FindBy(className = "footer-copyright")
+    public WebElement footerCopyright;
+
+    @FindBy(className = "main-menu")
+    public  WebElement mainMenu;
+
 }
 
