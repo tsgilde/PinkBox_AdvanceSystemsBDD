@@ -42,4 +42,8 @@ public class HomePage {
     public List<WebElement> listOfName;
 
     public String socialMediaBtn = "//ul[@class='social-icon-six']//a[contains(@href, '%s')]";
+
+
+    public String footerContact = "//ul[@class='list-info']//li[contains(text(),'%s')]";
 }
+
