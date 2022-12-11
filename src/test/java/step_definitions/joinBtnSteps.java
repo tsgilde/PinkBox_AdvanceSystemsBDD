@@ -5,7 +5,6 @@ import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
 import pages.CommonPage;
 import pages.joinBtnPage;
-import pages.titleHomePage;
 import utils.BrowserUtils;
 
 public class joinBtnSteps implements CommonPage {
@@ -33,5 +32,4 @@ public class joinBtnSteps implements CommonPage {
         BrowserUtils.isDisplayed(page.jsBtn);
 
     }
-
 }
