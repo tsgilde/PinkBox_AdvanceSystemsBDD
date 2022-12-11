@@ -242,6 +242,17 @@ public class HomeSteps implements CommonPage {
 
     }
 
+    @When("I scroll down the home page I verify navigation options are displayed")
+    public void iScrollDownTheHomePageIVerifyNavigationOptionsAreDisplayed() {
+        BrowserUtils.isDisplayed(page.footerCopyright);
+        BrowserUtils.isDisplayed((page.mainMenu));
+    }
+    @When("I click the navigation {string}")
+    public void iClickTheNavigation(String button) {
+        BrowserUtils.click(BrowserUtils.getDriver().findElement(
+                By.xpath(String.format(XPATH_TEMPLATE_OPTION_TEXT, button))));
+    }
+
 }
 
 
