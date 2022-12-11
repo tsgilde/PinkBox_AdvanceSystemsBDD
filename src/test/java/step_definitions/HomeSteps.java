@@ -151,7 +151,6 @@ public class HomeSteps implements CommonPage {
                 String.format(page.socialMediaBtn, button.toLowerCase()))));
 
         BrowserUtils.assertTrue(link.contains(button.toLowerCase()));
-
     }
 
     @When("I click a {string} button")

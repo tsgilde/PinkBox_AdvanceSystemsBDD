@@ -36,7 +36,6 @@ Feature: Home page tests
     Then I click the button "Join Now"
     And I verify if it took me to "Join Us" page
 
-
   @ASP-10 @Regression
   Scenario Outline: Verify Social media options
     When I click a "<social media link>" button
