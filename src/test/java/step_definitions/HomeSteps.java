@@ -153,7 +153,6 @@ public class HomeSteps implements CommonPage {
 
     }
 
-
     @When("I click a {string} button")
     public void iClickAButton(String button) {
         BrowserUtils.click(BrowserUtils.getDriver().findElement(
@@ -165,6 +164,18 @@ public class HomeSteps implements CommonPage {
         BrowserUtils.switchToNewWindow();
         BrowserUtils.assertEquals(BrowserUtils.getDriver().findElement(
                 By.xpath("//meta[@property='og:site_name']")).getAttribute("content"), socialMedia);
+    }
+
+    @When("Verify {string} info is displayed in the footer section:")
+    public void verifyInfoIsDisplayedInTheFooterSection(String text) {
+
+        String contact = BrowserUtils.getDriver().findElement(By.xpath(
+                String.format(page.footerContact, text))).getText();
+
+        BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(By.xpath(
+                String.format(page.footerContact, text))));
+
+        BrowserUtils.assertTrue(contact.contains(text));
     }
 }
 
