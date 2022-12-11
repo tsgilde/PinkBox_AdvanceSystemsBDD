@@ -119,11 +119,15 @@ public class HomeSteps implements CommonPage {
                     page.next_nav.click();
                 }
 
+                wait.until(ExpectedConditions.visibilityOf(page.activeName));
                 wait.until(ExpectedConditions.visibilityOf(page.activeText));
+
                 currentName = page.activeName.getText();
                 currentText = page.activeText.getText();
 
                 if (!nameAndText.containsKey(currentName)) {
+                    System.out.println(currentName);
+                    System.out.println(currentText);
                     nameAndText.put(currentName, currentText);
                 }
                 Thread.sleep(3000);
