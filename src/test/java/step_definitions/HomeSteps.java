@@ -1,5 +1,6 @@
 package step_definitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -177,6 +178,26 @@ public class HomeSteps implements CommonPage {
 
         BrowserUtils.assertTrue(contact.contains(text));
     }
+
+    @Then("I verify the button is displayed {string}")
+    public void iVerifyTheButtonIsDisplayed(String jnBtn) {
+        BrowserUtils.isDisplayed(page.jnBtn);
+    }
+
+    @Then("I click the button {string}")
+    public void iClickTheButton(String jnBtn) {
+        BrowserUtils.click(BrowserUtils.getDriver().findElement(
+                By.xpath(String.format(XPATH_TEMPLATE_TEXT, jnBtn))
+        ));
+
+    }
+
+    @And("I verify if it took me to {string} page")
+    public void iVerifyIfItTookMeToPage(String jsBtn) {
+        BrowserUtils.isDisplayed(page.jsBtn);
+
+    }
+
 }
 
 
