@@ -34,6 +34,16 @@ Feature: Home page tests
       | Spanish   |
       | French    |
 
+  @ASP-08
+  Scenario: There should be a "JOIN NOW" button above the main content of the home page
+    Then I verify the button is displayed "Join Now"
+
+  @ASP-08b
+  Scenario: Button should take me to "Join Us" page
+    Then I click the button "Join Now"
+    And I verify if it took me to "Join Us" page
+
+
   @ASP-10 @Regression
   Scenario Outline: Verify Social media options
     When I click a "<social media link>" button
@@ -64,7 +74,6 @@ Feature: Home page tests
   @ASP-12b
   Scenario: Test the actual testimonials
     Then Verify that each testimonial has message displayed
-
 
   @ASP-13 @regression
   Scenario: Verify above the footer there should be displayed company names in 1 row.
