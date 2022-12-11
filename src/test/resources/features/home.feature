@@ -67,7 +67,6 @@ Feature: Home page tests
   Scenario: Test the actual testimonials
     Then Verify that each testimonial has message displayed
 
-
   @ASP-13 @regression
   Scenario: Verify above the footer there should be displayed company names in 1 row.
     Then Verify company names is displayed in 1 row.

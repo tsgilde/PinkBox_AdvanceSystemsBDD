@@ -43,7 +43,6 @@ public class HomePage {
 
     public String socialMediaBtn = "//ul[@class='social-icon-six']//a[contains(@href, '%s')]";
 
-
     public String footerContact = "//ul[@class='list-info']//li[contains(text(),'%s')]";
 
     @FindBy(xpath= "//*[text()='Join Now']")
@@ -51,6 +50,5 @@ public class HomePage {
 
     @FindBy(xpath = "//div[@class='nav-outer clearfix']//nav[@class='main-menu']//div[@class='navbar-collapse collapse clearfix']//ul[@class='navigation clearfix']//li[@class='current']//a[@href='joinUs.html'][normalize-space()='Join Us']")
     public WebElement jsBtn;
-
 }
 
