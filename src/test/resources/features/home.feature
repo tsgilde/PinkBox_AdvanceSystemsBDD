@@ -7,6 +7,13 @@ Feature: Home page tests
   Scenario: I would like to display our address and phone number under the main navigation bar
     When I verify the home page is display the contact info
 
+  @ASP-4 @regression
+  Scenario: Verify Header, description and Read More button under navigation bar is displayed
+    Then Verify Header is displayed
+    Then Verify description is displayed
+    Then Verify if page refresh every 10-15 seconds
+    Then User clicks READ MORE button and Verify services page is opened
+
   @ASP-6 @smoke @regression
   Scenario: Test header of the home page
     Then Verify header text is "Advance Systems - Home"
@@ -39,16 +46,16 @@ Feature: Home page tests
       | https://linkedin.com  | LinkedIn          |
 
   @ASP-11 @smoke
-    Scenario Outline: Verify What to expect section
+  Scenario Outline: Verify What to expect section
     Then I verify "<what to expect>"  section is displayed
     Examples:
-    | what to expect                |
-    | Leadership Development        |
-    | Capability Building           |
-    | Rewards & Benefits            |
-    | Employee & Employer           |
-    | Relations                     |
-    | Excellent Customer Service    |
+      | what to expect             |
+      | Leadership Development     |
+      | Capability Building        |
+      | Rewards & Benefits         |
+      | Employee & Employer        |
+      | Relations                  |
+      | Excellent Customer Service |
 
   @ASP-12a
   Scenario: Test testimonials which should be displayed actual testimonials by different people
@@ -67,11 +74,11 @@ Feature: Home page tests
   Scenario Outline: In the footer section it should be displayed address, phone number, email and hour.
     When Verify "<contact>" info is displayed in the footer section:
     Examples:
-      | contact                              |
-      |  Address: 10090 Main St, Fairfax, VA |
-      |  Phone: +1 703-831-3217              |
-      |  Email: info@advancesystems.us       |
-      |  Mon to Sat: 9.00 am to 5:00 pm      |
+      | contact                             |
+      | Address: 10090 Main St, Fairfax, VA |
+      | Phone: +1 703-831-3217              |
+      | Email: info@advancesystems.us       |
+      | Mon to Sat: 9.00 am to 5:00 pm      |
 
   @ASP-15
   Scenario Outline:  Verify practice website destination url

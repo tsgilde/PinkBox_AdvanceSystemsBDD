@@ -38,12 +38,55 @@ public class HomeSteps implements CommonPage {
             System.out.println(list.getText());
         }
     }
+    @Then("Verify Header is displayed")
+    public void verifyHeaderIsDisplayed() {
+        BrowserUtils.isDisplayed(page.careerHeader);
+        System.out.println(page.careerHeader.getText());
+
+        wait = new WebDriverWait(BrowserUtils.getDriver(), 15);
+        BrowserUtils.isDisplayed(page.thinkBigHeader);
+        System.out.println(page.thinkBigHeader.getText());
+
+    }
+    @Then("Verify description is displayed")
+    public void verify_description_is_displayed() {
+
+        BrowserUtils.isDisplayed(page.thinkBigDescription);
+        System.out.println(page.thinkBigDescription.getText());
+
+        BrowserUtils.isDisplayed(page.careerDescription);
+        System.out.println(page.careerDescription.getText());
+
+    }
+    @Then("Verify if page refresh every {int}{int} seconds")
+    public void verifyIfPageRefreshEverySeconds(int arg0, int arg1) {
+
+        BrowserUtils.waitForElementVisibility(page.thinkBigHeader);
+        BrowserUtils.isDisplayed(page.thinkBigHeader);
+
+    }
+    @Then("User clicks READ MORE button and Verify services page is opened")
+    public void userClicksREADMOREButtonAndVerifyServicesPageIsOpened() {
+
+        if (page.readMoreBtn.isDisplayed()) {
+            page.readMoreBtn.click();
+        }
+        else {
+            try {
+                Thread.sleep(2000);
+                page.readMoreBtn.click();
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        Assert.assertTrue(BrowserUtils.getDriver().getTitle().contains("Services"));
+    }
 
     @Then("Verify header text is {string}")
     public void verifyHeaderTextIs(String url) {
         BrowserUtils.assertEquals(BrowserUtils.getDriver().getTitle(), url);
     }
-
 
     @Then("Verify button {string} is displayed")
     public void verifyButtonIsDisplayed(String button) {

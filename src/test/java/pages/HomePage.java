@@ -43,7 +43,21 @@ public class HomePage {
 
     public String socialMediaBtn = "//ul[@class='social-icon-six']//a[contains(@href, '%s')]";
 
-
     public String footerContact = "//ul[@class='list-info']//li[contains(text(),'%s')]";
+
+    @FindBy(xpath = "//div[@class = 'tp-caption']//h2[contains(text(), 'A bright career')]")
+    public WebElement careerHeader;
+
+    @FindBy(xpath = "//div[@class = 'tp-caption']//h2[contains(text(), 'Think Big.')]")
+    public WebElement thinkBigHeader;
+
+    @FindBy(xpath = "//div[@class = 'tp-caption']//div[contains(text(), 'Lorem Ipsum')]")
+    public WebElement thinkBigDescription;
+
+    @FindBy(xpath = "//div[@class = 'tp-caption']//div[contains(text(), 'Our Career Network')]")
+    public WebElement careerDescription;
+    @FindBy(xpath = "//li[contains(@class, 'active')]//a[contains(text(),'Read More')]")
+    public WebElement readMoreBtn;
+
 }
 
