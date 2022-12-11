@@ -34,6 +34,19 @@ Feature: Home page tests
       | Spanish   |
       | French    |
 
+  @ASP-9 @smoke
+  Scenario Outline: Verify navigation options remain visible even after user scrolls down the page
+    When I scroll down the home page I verify navigation options are displayed
+    When I click the navigation "<option>"
+    Then Verify destination window has url as "<URL>"
+    Examples:
+      | option   | URL                                                                 |
+      | Home       | https://tla-batch-6.github.io/advance-systems-test-b6/index.html    |
+      | About Us   | https://tla-batch-6.github.io/advance-systems-test-b6/about.html    |
+      | Services   | https://tla-batch-6.github.io/advance-systems-test-b6/services.html |
+      | Clients    | https://tla-batch-6.github.io/advance-systems-test-b6/clients.html  |
+      | Contact Us | https://tla-batch-6.github.io/advance-systems-test-b6/contact.html  |
+
   @ASP-10 @Regression
   Scenario Outline: Verify Social media options
     When I click a "<social media link>" button
@@ -101,7 +114,3 @@ Feature: Home page tests
       | Twitter      |
       | Skype        |
       | LinkedIn     |
-
-
-
-
