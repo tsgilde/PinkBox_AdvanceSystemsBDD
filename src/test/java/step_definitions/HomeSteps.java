@@ -1,5 +1,6 @@
 package step_definitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 public class HomeSteps implements CommonPage {
     HomePage page;
+
     WebDriverWait wait;
     
     public HomeSteps() {
@@ -184,18 +186,6 @@ public class HomeSteps implements CommonPage {
         }
     }
 
-    @Then("Verify social media button {string} is displayed")
-    public void verifySocialMediaButtonIsDisplayed(String button) {
-        String link = BrowserUtils.getDriver().findElement(By.xpath(
-                String.format(page.socialMediaBtn, button.toLowerCase()))).getAttribute("href");
-
-        BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(By.xpath(
-                String.format(page.socialMediaBtn, button.toLowerCase()))));
-
-        BrowserUtils.assertTrue(link.contains(button.toLowerCase()));
-
-    }
-
     @When("I click a {string} button")
     public void iClickAButton(String button) {
         BrowserUtils.click(BrowserUtils.getDriver().findElement(
@@ -221,6 +211,37 @@ public class HomeSteps implements CommonPage {
         BrowserUtils.assertTrue(contact.contains(text));
     }
 
+    @Then("I verify the button is displayed {string}")
+    public void iVerifyTheButtonIsDisplayed(String jnBtn) {
+        BrowserUtils.isDisplayed(page.jnBtn);
+    }
+
+    @Then("I click the button {string}")
+    public void iClickTheButton(String jnBtn) {
+        BrowserUtils.click(BrowserUtils.getDriver().findElement(
+                By.xpath(String.format(XPATH_TEMPLATE_TEXT, jnBtn))
+        ));
+
+    }
+
+    @And("I verify if it took me to {string} page")
+    public void iVerifyIfItTookMeToPage(String jsBtn) {
+        BrowserUtils.isDisplayed(page.jsBtn);
+
+    }
+
+    @Then("Verify social media button {string} is displayed")
+    public void verifySocialMediaButtonIsDisplayed(String button) {
+        String link = BrowserUtils.getDriver().findElement(By.xpath(
+                String.format(page.socialMediaBtn, button.toLowerCase()))).getAttribute("href");
+
+        BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(By.xpath(
+                String.format(page.socialMediaBtn, button.toLowerCase()))));
+
+        BrowserUtils.assertTrue(link.contains(button.toLowerCase()));
+
+    }
+
     @When("I scroll down the home page I verify navigation options are displayed")
     public void iScrollDownTheHomePageIVerifyNavigationOptionsAreDisplayed() {
         BrowserUtils.isDisplayed(page.footerCopyright);
@@ -231,7 +252,6 @@ public class HomeSteps implements CommonPage {
         BrowserUtils.click(BrowserUtils.getDriver().findElement(
                 By.xpath(String.format(XPATH_TEMPLATE_OPTION_TEXT, button))));
     }
-
 
 }
 
