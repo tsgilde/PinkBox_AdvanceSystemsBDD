@@ -38,6 +38,9 @@ public class HomePage {
     @FindBy(xpath = "//div[@class='owl-item active']//div[@class='text']")
     public WebElement activeText;
 
+    @FindBy(xpath = "//div[@class='sec-title light centered']")
+    public WebElement testimonials;
+
     @FindBy(xpath = "//div[@class='owl-item']//h3")
     public List<WebElement> listOfName;
 

@@ -152,6 +152,8 @@ public class HomeSteps implements CommonPage {
 
     @Then("Verify that each testimonial has message displayed")
     public void verifyThatEachTestimonialHasMessageDisplayed() {
+        BrowserUtils.moveIntoView(page.testimonials);
+
         Map<String, String> nameAndText = new LinkedHashMap<>();
         String currentName = "";
         String currentText = "";
