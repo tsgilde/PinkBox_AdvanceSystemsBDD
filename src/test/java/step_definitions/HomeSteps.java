@@ -35,10 +35,18 @@ public class HomeSteps implements CommonPage {
     @When("I verify the home page is display the contact info")
     public void iVerifyTheHomePageIsDisplayTheContactInfo() {
         List<WebElement> each = BrowserUtils.getDriver().findElements(By.xpath("//div[@class=\"info-box-one\"]"));
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         for(WebElement list : each){
             BrowserUtils.isDisplayed(list);
             System.out.println(list.getText());
+
+
         }
+
     }
     @Then("Verify Header is displayed")
     public void verifyHeaderIsDisplayed() {
@@ -203,13 +211,21 @@ public class HomeSteps implements CommonPage {
     @When("Verify {string} info is displayed in the footer section:")
     public void verifyInfoIsDisplayedInTheFooterSection(String text) {
 
-        String contact = BrowserUtils.getDriver().findElement(By.xpath(
-                String.format(page.footerContact, text))).getText();
+        try {
+            String contact = BrowserUtils.getDriver().findElement(By.xpath(
+                    String.format(page.footerContact, text))).getText();
+            Thread.sleep(6000);
 
-        BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(By.xpath(
-                String.format(page.footerContact, text))));
+            BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(By.xpath(
+                    String.format(page.footerContact, text))));
 
-        BrowserUtils.assertTrue(contact.contains(text));
+            BrowserUtils.assertTrue(contact.contains(text));
+
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Then("I verify the button is displayed {string}")
