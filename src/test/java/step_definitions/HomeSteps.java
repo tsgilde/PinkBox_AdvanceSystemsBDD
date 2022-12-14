@@ -105,13 +105,10 @@ public class HomeSteps implements CommonPage {
 
     @Then("I should see {string} in dropdown menu")
     public void iShouldSeeInDropdownMenu(String language) {
-        List<String> temp = new ArrayList<>();
-        for (WebElement each : page.languages) {
-            temp.add(each.getText());
-        }
-
-        Assert.assertTrue(temp.contains(language));
-
+        BrowserUtils.isDisplayed(
+                BrowserUtils.getDriver().findElement(
+                        By.xpath(String.format(XPATH_TEMPLATE_LINKTEXT, language)))
+        );
     }
 
     @Then("I verify {string}  section is displayed")
@@ -144,6 +141,8 @@ public class HomeSteps implements CommonPage {
 
     @Then("Verify header text is {string} is displayed")
     public void verifyHeaderTextIsIsDisplayed(String text) {
+        BrowserUtils.moveIntoView(page.section);
+
         BrowserUtils.isDisplayed(
                 BrowserUtils.getDriver().findElement(
                         By.xpath(String.format(XPATH_TEMPLATE_TEXT, text)))
@@ -223,7 +222,6 @@ public class HomeSteps implements CommonPage {
         BrowserUtils.click(BrowserUtils.getDriver().findElement(
                 By.xpath(String.format(XPATH_TEMPLATE_TEXT, jnBtn))
         ));
-
     }
 
     @And("I verify if it took me to {string} page")
