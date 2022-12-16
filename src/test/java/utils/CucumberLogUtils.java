@@ -27,6 +27,7 @@ public class CucumberLogUtils {
     public static void logInfo(String msg, String takeScreenshot){
         currentScenario.log(getLogTime() + "  INFO: " + msg);
         if(takeScreenshot.equalsIgnoreCase("true")){
+            BrowserUtils.waitForPageLoad();
             final byte[] screenshot = ((TakesScreenshot) BrowserUtils.getDriver())
                     .getScreenshotAs(OutputType.BYTES);
             currentScenario.attach(screenshot, "image/png", "screenshot");
