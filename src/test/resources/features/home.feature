@@ -25,20 +25,15 @@ Feature: Home page tests
     Then Verify button "Feedback" is displayed
 
   @ASP-7b @regression
-  Scenario Outline: Test language selection in navigation bar
+  Scenario: Test language selection in navigation bar
     When I click on language button
-    Then I should see "<Languages>" in dropdown menu
-    Examples:
-      | Languages |
-      | English   |
-      | Spanish   |
-      | French    |
+    Then Verify "Languages" selection is displayed
 
-  @ASP-08
+  @ASP-08 @regression
   Scenario: There should be a "JOIN NOW" button above the main content of the home page
     Then I verify the button is displayed "Join Now"
 
-  @ASP-08b
+  @ASP-08b @regression
   Scenario: Button should take me to "Join Us" page
     Then I click the button "Join Now"
     And I verify if it took me to "Join Us" page
@@ -49,7 +44,7 @@ Feature: Home page tests
     When I click the navigation "<option>"
     Then Verify destination window has url as "<URL>"
     Examples:
-      | option   | URL                                                                 |
+      | option     | URL                                                                 |
       | Home       | https://tla-batch-6.github.io/advance-systems-test-b6/index.html    |
       | About Us   | https://tla-batch-6.github.io/advance-systems-test-b6/about.html    |
       | Services   | https://tla-batch-6.github.io/advance-systems-test-b6/services.html |
