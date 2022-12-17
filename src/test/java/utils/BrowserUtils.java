@@ -90,6 +90,8 @@ public class BrowserUtils {
 
     public static void moveIntoView(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        JavascriptExecutor js = (JavascriptExecutor) BrowserUtils.getDriver();
+        js.executeScript("window.scrollBy(0, -300)");
     }
 
     public static void highlightElement(WebElement element) {
