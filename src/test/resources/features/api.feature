@@ -1,5 +1,25 @@
 Feature: Api tests
 
+  @ASP-22a
+  Scenario: Performing POST request for adding a new dev course to DB
+    Then Get all dev courses
+    Then I add a new dev course to db with fields using endpoint "/api/school/programs/devcourse"
+
+  @ASP-22b
+  Scenario: Performing POST request for adding a new sdet course to DB
+    Then Get all sdet courses
+    Then I add a new sdet course to db with fields using endpoint "/api/school/programs/sdetcourse"
+
+  @ASP-23a
+  Scenario: Performing DELETE request for deleting an existing dev course
+    Then I add a new dev course to db with fields using endpoint "/api/school/programs/devcourse"
+    Then I delete an existing dev course with name using endpoint "/api/school/programs/devcourse"
+
+  @ASP-23b
+  Scenario: Performing DELETE request for deleting an existing sdet course
+    Then I add a new sdet course to db with fields using endpoint "/api/school/programs/sdetcourse"
+    Then I delete an existing sdet course with name using endpoint "/api/school/programs/sdetcourse"
+
   @ASP-24
   Scenario: Performing POST request for adding new student to DB
     Then Get all students

@@ -15,8 +15,12 @@ import static org.apache.http.HttpStatus.*;
 public class ApiSteps {
     public static String baseUrl = "https://tla-school-api.herokuapp.com" ;
     String path = "/api/school/resources/students";
+    String pathDev = "/api/school/programs/devcourse";
+    String pathSdet = "/api/school/programs/sdetcourse";
     Response response;
     String studentId;
+    String devName;
+    String sdetName;
     static Map<String, Object> variables;
 
 //    public ApiSteps() {
@@ -131,6 +135,130 @@ public class ApiSteps {
 
         Assert.assertEquals(SC_OK, response.statusCode());
         System.out.println(response.jsonPath().getString("data"));
+    }
+
+
+    @Then("Get all dev courses")
+    public void getAllDevCourses() {
+        RestAssured.baseURI = baseUrl;
+        Response response =
+                given()
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(pathDev)
+                        .then()
+                        .statusCode(200)
+                        .log().all()
+                        .extract()
+                        .response();
+
+        Assert.assertEquals(SC_OK, response.statusCode());
+    }
+
+    @Then("I add a new dev course to db with fields using endpoint {string}")
+    public void iAddANewDevCourseToDbWithFieldsUsingEndpoint(String path) {
+        RestAssured.baseURI = baseUrl;
+        String requestBody =  "{\n" +
+                "            \"duration\": \"6 months\",\n" +
+                "            \"name\": \"DevOps\",\n" +
+                "            \"__v\": 0\n" +
+                "        }";
+
+        response = given()
+                .header("Content-Type" , "application/json")
+                .and()
+                .body(requestBody)
+                .when()
+                .post(path)
+                .then().log().all()
+                .extract()
+                .response();
+
+        Assert.assertEquals(SC_OK, response.statusCode());
+
+        devName = response.jsonPath().getString("data.name");
+
+        variables = new HashMap<>();
+        variables.put("name", devName);
+
+    }
+
+    @Then("Get all sdet courses")
+    public void getAllSdetCourses() {
+        RestAssured.baseURI = baseUrl;
+        Response response =
+                given()
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(pathSdet)
+                        .then()
+                        .statusCode(200)
+                        .log().all()
+                        .extract()
+                        .response();
+
+        Assert.assertEquals(SC_OK, response.statusCode());
+    }
+
+    @Then("I add a new sdet course to db with fields using endpoint {string}")
+    public void iAddANewSdetCourseToDbWithFieldsUsingEndpoint(String path) {
+        RestAssured.baseURI = baseUrl;
+        String requestBody =  "{\n" +
+                "            \"duration\": \"3 months\",\n" +
+                "            \"name\": \"API\",\n" +
+                "            \"__v\": 0\n" +
+                "        }";
+
+        response = given()
+                .header("Content-Type" , "application/json")
+                .and()
+                .body(requestBody)
+                .when()
+                .post(path)
+                .then().log().all()
+                .extract()
+                .response();
+
+        Assert.assertEquals(SC_OK, response.statusCode());
+
+        sdetName = response.jsonPath().getString("data.name");
+
+        variables = new HashMap<>();
+        variables.put("name", sdetName);
+    }
+
+    @Then("I delete an existing dev course with name using endpoint {string}")
+    public void iDeleteAnExistingDevCourseWithNameUsingEndpoint(String path) {
+        RestAssured.baseURI = baseUrl;
+        response = given()
+                .with()
+                .pathParams("name", "DevOps")
+                .when()
+                .delete(path + variables.get("name"))
+                .then()
+                .log().all()
+                .extract()
+                .response();
+
+        System.out.println("Deleted: " + response.getStatusCode());
+        Assert.assertEquals(SC_OK, response.statusCode());
+    }
+
+    @Then("I delete an existing sdet course with name using endpoint {string}")
+    public void iDeleteAnExistingSdetCourseWithNameUsingEndpoint(String path) {
+        RestAssured.baseURI = baseUrl;
+        response = given()
+                .with()
+                .pathParams("name", "API")
+                .when()
+                .delete(path + variables.get("name"))
+                .then()
+                .log().all()
+                .extract()
+                .response();
+
+        System.out.println("Deleted: " + response.getStatusCode());
+        Assert.assertEquals(SC_OK, response.statusCode());
     }
 }
 
