@@ -40,8 +40,8 @@ public class ApiSteps {
         Assert.assertEquals(SC_OK, response.statusCode());
     }
 
-    @Then("I add new student to db with fields with end point {string}")
-    public void iAddNewStudentToDbWithFieldsWithEndPoint(String path) {
+    @Then("I add new student to db with fields using end point {string}")
+    public void iAddNewStudentToDbWithFieldsUsingEndPoint(String path) {
         RestAssured.baseURI = baseUrl;
         String requestBody =  "{\n" +
                 "  \"batch\": 6,\n" +
@@ -61,18 +61,15 @@ public class ApiSteps {
                 .response();
 
         Assert.assertEquals(SC_OK, response.statusCode());
-        System.out.println(response.jsonPath().getString("data"));
-        System.out.println("========");
+
         studentId = response.jsonPath().getString("data._id");
-        System.out.println("id--------" + studentId);
 
         variables = new HashMap<>();
         variables.put("id", studentId);
-        System.out.println(variables);
     }
 
-    @Then("I delete existing student with _id parameter with end point {string}")
-    public void iDeleteExistingStudentWith_idParameterWithEndPoint(String path) {
+    @Then("I delete existing student with _id parameter using end point {string}")
+    public void iDeleteExistingStudentWith_idParameterUsingEndPoint(String path) {
         System.out.println("====================");
         System.out.println(variables);
         RestAssured.baseURI = baseUrl;
@@ -80,7 +77,7 @@ public class ApiSteps {
                 .with()
                 .pathParams("key", "d03e989018msh7f4691c614e87a9p1a8181j")
                 .when()
-                .delete(path + variables.get("id") +"?key=" + "{key}")
+                .delete(path + variables.get("id") + "?key=" + "{key}")
                 .then()
                 .log().all()
                 .extract()
@@ -88,7 +85,52 @@ public class ApiSteps {
 
         System.out.println("Deleted: " + response.getStatusCode());
         Assert.assertEquals(SC_OK, response.statusCode());
+    }
+
+    @Then("I update existing student with _id parameter using end point {string}")
+    public void iUpdateExistingStudentWith_idParameterUsingEndPoint(String path) {
+        RestAssured.baseURI = baseUrl;
+
+        String updateInfo = "{\"_id\":\""+variables.get("id")+"\"," +
+                "\"batch\":6.5,\"firstName\":\"Pinkbox\"," +
+                "\"lastName\":\"Team\"," +
+                "\"email\":\"test1234@test.com\",\"__v\":0}";
+
+        //System.out.println("update====" + updateInfo);
+
+        response = given()
+                .header("Content-type", "application/json")
+                //.header("key", "d03e989018msh7f4691c614e87a9p1a8181j")
+                .pathParams("key", "d03e989018msh7f4691c614e87a9p1a8181j")
+                .and()
+                .body(updateInfo)
+                .when()
+                .put(path + variables.get("id") + "?key=" + "{key}")
+                .then()
+                .log().all()
+                .extract()
+                .response();
+
+        Assert.assertEquals(SC_OK, response.statusCode());
 
     }
 
+    @Then("I should see an update existing student")
+    public void iShouldSeeAnUpdateExistingStudent() {
+        RestAssured.baseURI = baseUrl;
+        Response response =
+                given()
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(path + "/" + variables.get("id"))
+                        .then()
+                        .statusCode(200)
+                        .log().all()
+                        .extract()
+                        .response();
+
+        Assert.assertEquals(SC_OK, response.statusCode());
+        System.out.println(response.jsonPath().getString("data"));
+    }
 }
+
