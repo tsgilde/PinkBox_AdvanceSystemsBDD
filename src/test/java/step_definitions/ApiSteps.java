@@ -79,9 +79,9 @@ public class ApiSteps {
         RestAssured.baseURI = baseUrl;
         response = given()
                 .with()
-                .pathParams("key", "d03e989018msh7f4691c614e87a9p1a8181j")
+                .queryParam("key","d03e989018msh7f4691c614e87a9p1a8181j" )
                 .when()
-                .delete(path + variables.get("id") + "?key=" + "{key}")
+                .delete(path + variables.get("id"))
                 .then()
                 .log().all()
                 .extract()
@@ -104,12 +104,11 @@ public class ApiSteps {
 
         response = given()
                 .header("Content-type", "application/json")
-                //.header("key", "d03e989018msh7f4691c614e87a9p1a8181j")
-                .pathParams("key", "d03e989018msh7f4691c614e87a9p1a8181j")
+                .queryParam("key","d03e989018msh7f4691c614e87a9p1a8181j" )
                 .and()
                 .body(updateInfo)
                 .when()
-                .put(path + variables.get("id") + "?key=" + "{key}")
+                .put(path + variables.get("id"))
                 .then()
                 .log().all()
                 .extract()
@@ -158,11 +157,11 @@ public class ApiSteps {
     @Then("I add a new dev course to db with fields using endpoint {string}")
     public void iAddANewDevCourseToDbWithFieldsUsingEndpoint(String path) {
         RestAssured.baseURI = baseUrl;
-        String requestBody =  "{\n" +
-                "            \"duration\": \"6 months\",\n" +
-                "            \"name\": \"DevOps\",\n" +
-                "            \"__v\": 0\n" +
-                "        }";
+
+        String requestBody = "{\n" +
+                "  \"duration\": \"6 months .....\",\n" +
+                "  \"name\": \"Develop%\"\n" +
+                "}";
 
         response = given()
                 .header("Content-Type" , "application/json")
@@ -173,19 +172,24 @@ public class ApiSteps {
                 .then().log().all()
                 .extract()
                 .response();
+        System.out.println(response);
 
         Assert.assertEquals(SC_OK, response.statusCode());
+        System.out.println("======response======");
+        System.out.println(response);
 
         devName = response.jsonPath().getString("data.name");
-
+        System.out.println(devName);
         variables = new HashMap<>();
         variables.put("name", devName);
+        System.out.println("Variable-========" + variables);
 
     }
 
     @Then("Get all sdet courses")
     public void getAllSdetCourses() {
         RestAssured.baseURI = baseUrl;
+
         Response response =
                 given()
                         .contentType(ContentType.JSON)
@@ -203,11 +207,11 @@ public class ApiSteps {
     @Then("I add a new sdet course to db with fields using endpoint {string}")
     public void iAddANewSdetCourseToDbWithFieldsUsingEndpoint(String path) {
         RestAssured.baseURI = baseUrl;
-        String requestBody =  "{\n" +
-                "            \"duration\": \"3 months\",\n" +
-                "            \"name\": \"API\",\n" +
-                "            \"__v\": 0\n" +
-                "        }";
+
+        String requestBody = "{\n" +
+                "  \"duration\": \"2 months .....\",\n" +
+                "  \"name\": \"API..\"\n" +
+                "}";
 
         response = given()
                 .header("Content-Type" , "application/json")
@@ -230,11 +234,12 @@ public class ApiSteps {
     @Then("I delete an existing dev course with name using endpoint {string}")
     public void iDeleteAnExistingDevCourseWithNameUsingEndpoint(String path) {
         RestAssured.baseURI = baseUrl;
+
         response = given()
                 .with()
-                .pathParams("name", "DevOps")
+                .queryParam("name",variables.get("name"))
                 .when()
-                .delete(path + variables.get("name"))
+                .delete(path)
                 .then()
                 .log().all()
                 .extract()
@@ -247,11 +252,12 @@ public class ApiSteps {
     @Then("I delete an existing sdet course with name using endpoint {string}")
     public void iDeleteAnExistingSdetCourseWithNameUsingEndpoint(String path) {
         RestAssured.baseURI = baseUrl;
+
         response = given()
                 .with()
-                .pathParams("name", "API")
+                .queryParam("name", variables.get("name"))
                 .when()
-                .delete(path + variables.get("name"))
+                .delete(path)
                 .then()
                 .log().all()
                 .extract()
