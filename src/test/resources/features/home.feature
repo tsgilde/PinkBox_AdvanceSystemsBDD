@@ -117,3 +117,10 @@ Feature: Home page tests
       | Twitter      |
       | Skype        |
       | LinkedIn     |
+
+  @ASP-17 @smoke
+  Scenario Outline: This section should have email input field with a place holder "Email Address…"
+    Then I verify "<email input>"  field is displayed
+    Examples:
+      | email input      |
+      | Email Address... |

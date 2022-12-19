@@ -296,6 +296,13 @@ public class HomeSteps implements CommonPage {
                 By.xpath(String.format(XPATH_TEMPLATE_OPTION_TEXT, button))));
     }
 
+    @Then("I verify {string}  field is displayed")
+    public void iVerifyFieldIsDisplayed(String email) {
+        BrowserUtils.isDisplayed(
+                BrowserUtils.getDriver().findElement(
+                        By.xpath(String.format(XPATH_TEMPLATE_INPUT_FIELD, email)))
+        );
+    }
 }
 
 
