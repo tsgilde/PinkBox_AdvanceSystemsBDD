@@ -124,3 +124,18 @@ Feature: Home page tests
     Examples:
       | email input      |
       | Email Address... |
+
+    @ASP-29
+      Scenario: There should be a main header “Welcome to Advance Systems LLC. ” in the section about us and should cointain name and title.
+      Then I click the button "About Us"
+      Then I verify the text header "Welcome to Advance Systems LLC."
+      And I verify the name and title are displed
+
+
+
+    @ASP-32
+    Scenario: I would like to see a header text "we are Recruiting Expeperts" in the page About us
+      Then I click the button "About Us"
+      Then I verify the text header "We are Recruitment Experts" in the Expert section
+      And I click the button "Our Services"
+      Then It should take me to the page "Advance Systems - Services"

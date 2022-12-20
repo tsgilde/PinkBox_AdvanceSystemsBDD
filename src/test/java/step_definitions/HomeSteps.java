@@ -262,9 +262,15 @@ public class HomeSteps implements CommonPage {
 
     @Then("I click the button {string}")
     public void iClickTheButton(String jnBtn) {
+        try {
+            Thread.sleep(6000);
+
         BrowserUtils.click(BrowserUtils.getDriver().findElement(
                 By.xpath(String.format(XPATH_TEMPLATE_TEXT, jnBtn))
         ));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @And("I verify if it took me to {string} page")
@@ -302,6 +308,47 @@ public class HomeSteps implements CommonPage {
                 BrowserUtils.getDriver().findElement(
                         By.xpath(String.format(XPATH_TEMPLATE_INPUT_FIELD, email)))
         );
+    }
+
+    @Then("I verify the text header {string} in the Expert section")
+    public void iVerifyTheTextHeaderInTheExpertSection(String text) {
+        try {
+            Thread.sleep(6000);
+        BrowserUtils.isDisplayed(
+                BrowserUtils.getDriver().findElement(
+                        By.xpath(String.format(XPATH_TEMPLATE_TEXT, text))));
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Then("It should take me to the page {string}")
+    public void itShouldTakeMeToThePage(String text) {
+        BrowserUtils.assertEquals(BrowserUtils.getDriver().getTitle(), text);
+    }
+
+    @Then("I verify the text header {string}")
+    public void iVerifyTheTextHeader(String text) {
+        try {
+            Thread.sleep(6000);
+        BrowserUtils.isDisplayed(
+                BrowserUtils.getDriver().findElement(
+                        By.xpath(String.format(XPATH_TEMPLATE_TEXT, text))));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @And("I verify the name and title are displed")
+    public void iVerifyTheNameAndTitleAreDispled() {
+        try {
+            Thread.sleep(6000);
+        BrowserUtils.isDisplayed(page.title);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
