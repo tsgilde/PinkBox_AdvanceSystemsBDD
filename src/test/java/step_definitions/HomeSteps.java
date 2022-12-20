@@ -44,9 +44,7 @@ public class HomeSteps implements CommonPage {
             BrowserUtils.isDisplayed(list);
             System.out.println(list.getText());
 
-
         }
-
     }
     @Then("Verify Header is displayed")
     public void verifyHeaderIsDisplayed() {
@@ -100,6 +98,11 @@ public class HomeSteps implements CommonPage {
 
     @Then("Verify button {string} is displayed")
     public void verifyButtonIsDisplayed(String button) {
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         BrowserUtils.isDisplayed(
                 BrowserUtils.getDriver().findElement(
                         By.xpath(String.format(XPATH_TEMPLATE_LINKTEXT, button)))
@@ -111,16 +114,23 @@ public class HomeSteps implements CommonPage {
         page.languageBtn.click();
     }
 
-    @Then("I should see {string} in dropdown menu")
-    public void iShouldSeeInDropdownMenu(String language) {
-        BrowserUtils.isDisplayed(
-                BrowserUtils.getDriver().findElement(
-                        By.xpath(String.format(XPATH_TEMPLATE_LINKTEXT, language)))
-        );
+    @Then("Verify {string} selection is displayed")
+    public void verifySelectionIsDisplayed(String arg0) {
+
+        for (WebElement each : page.languages) {
+            BrowserUtils.isDisplayed(each);
+            System.out.println(each.getText());
+        }
     }
 
     @Then("I verify {string}  section is displayed")
     public void iVerifySectionIsDisplayed(String header) {
+        try {
+            Thread.sleep(7000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         BrowserUtils.isDisplayed(
                 BrowserUtils.getDriver().findElement(
                         By.xpath(String.format(XPATH_TEMPLATE_TEXT, header))
@@ -144,6 +154,11 @@ public class HomeSteps implements CommonPage {
     }
     @Then("Verify company names is displayed in {int} row.")
     public void verifyCompanyNamesIsDisplayedInRow(int arg0) {
+        try {
+            Thread.sleep(7000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         BrowserUtils.isDisplayed(page.companyNames);
     }
 
@@ -197,6 +212,11 @@ public class HomeSteps implements CommonPage {
 
     @When("I click a {string} button")
     public void iClickAButton(String button) {
+        try {
+            Thread.sleep(7000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         BrowserUtils.click(BrowserUtils.getDriver().findElement(
                 By.xpath(String.format(XPATH_TEMPLATE_HREF_CONTAINS, button))));
     }
@@ -204,6 +224,13 @@ public class HomeSteps implements CommonPage {
     @Then("It should take me to corresponding page. {string}")
     public void itShouldTakeMeToCorrespondingPage(String socialMedia) {
         BrowserUtils.switchToNewWindow();
+
+        try {
+            Thread.sleep(7000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         BrowserUtils.assertEquals(BrowserUtils.getDriver().findElement(
                 By.xpath("//meta[@property='og:site_name']")).getAttribute("content"), socialMedia);
     }
@@ -269,6 +296,32 @@ public class HomeSteps implements CommonPage {
                 By.xpath(String.format(XPATH_TEMPLATE_OPTION_TEXT, button))));
     }
 
+    @Then("I verify {string}  field is displayed")
+    public void iVerifyFieldIsDisplayed(String email) {
+        BrowserUtils.isDisplayed(
+                BrowserUtils.getDriver().findElement(
+                        By.xpath(String.format(XPATH_TEMPLATE_INPUT_FIELD, email)))
+        );
+    }
+
+    @Then("I verify the text header {string} in the Expert section")
+    public void iVerifyTheTextHeaderInTheExpertSection(String text) {
+        try {
+            Thread.sleep(6000);
+        BrowserUtils.isDisplayed(
+                BrowserUtils.getDriver().findElement(
+                        By.xpath(String.format(XPATH_TEMPLATE_TEXT, text))));
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Then("It should take me to the page {string}")
+    public void itShouldTakeMeToThePage(String text) {
+        BrowserUtils.assertEquals(BrowserUtils.getDriver().getTitle(), text);
+    }
 }
 
 

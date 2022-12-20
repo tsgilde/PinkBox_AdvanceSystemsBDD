@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.BufferedInputStream;
@@ -21,6 +22,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 public class BrowserUtils {
     //private constructor to implement Singleton Design Class
@@ -88,6 +90,8 @@ public class BrowserUtils {
 
     public static void moveIntoView(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        JavascriptExecutor js = (JavascriptExecutor) BrowserUtils.getDriver();
+        js.executeScript("window.scrollBy(0, -300)");
     }
 
     public static void highlightElement(WebElement element) {
@@ -276,6 +280,20 @@ public class BrowserUtils {
         }
         bos.flush();
         bis.close();
+    }
+
+    public static void waitForPageLoad() {
+
+        Wait<WebDriver> wait = new WebDriverWait(BrowserUtils.getDriver(), 30);
+        wait.until(new Function<WebDriver, Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                System.out.println("Current Window State       : "
+                        + String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState")));
+                return String
+                        .valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState"))
+                        .equals("complete");
+            }
+        });
     }
 
 }
