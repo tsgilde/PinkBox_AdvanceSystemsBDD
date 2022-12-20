@@ -77,5 +77,8 @@ public class HomePage {
     @FindBy(className = "main-menu")
     public  WebElement mainMenu;
 
+    @FindBy(xpath = "//div[@class='author-information']")
+    public static WebElement title;
+
 }
 
