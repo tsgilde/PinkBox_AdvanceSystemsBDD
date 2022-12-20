@@ -36,3 +36,7 @@ Feature: Api tests
     Then I add new student to db with fields using end point "/api/school/resources/students"
     Then I delete existing student with _id parameter using end point "/api/school/resources/students/"
 
+  @ASP-27
+  Scenario: Performing GET request to retrieve bearer token
+    Then I send a GET request with username and password using end point "/api/school/departments/gettoken"
+    Then Verify error message "Valid username and password required" when send invalid credentials

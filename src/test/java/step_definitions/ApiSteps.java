@@ -13,33 +13,31 @@ import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.*;
 
 public class ApiSteps {
-    public static String baseUrl = "https://tla-school-api.herokuapp.com" ;
+    public static String baseUrl = "https://tla-school-api.herokuapp.com";
     String path = "/api/school/resources/students";
     String pathDev = "/api/school/programs/devcourse";
     String pathSdet = "/api/school/programs/sdetcourse";
+    String pathToken = "/api/school/departments/gettoken";
     Response response;
     String studentId;
     String devName;
     String sdetName;
     static Map<String, Object> variables;
 
-//    public ApiSteps() {
-//    }
-
     @Then("Get all students")
     public void getAllStudents() {
 
         RestAssured.baseURI = baseUrl;
         Response response =
-            given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get(path)
-                .then()
-                .statusCode(200)
-                .log().all()
-                .extract()
-                .response();
+                given()
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(path)
+                        .then()
+                        .statusCode(200)
+                        .log().all()
+                        .extract()
+                        .response();
 
         Assert.assertEquals(SC_OK, response.statusCode());
     }
@@ -47,7 +45,7 @@ public class ApiSteps {
     @Then("I add new student to db with fields using end point {string}")
     public void iAddNewStudentToDbWithFieldsUsingEndPoint(String path) {
         RestAssured.baseURI = baseUrl;
-        String requestBody =  "{\n" +
+        String requestBody = "{\n" +
                 "  \"batch\": 6,\n" +
                 "  \"firstName\": \"Anne2222\",\n" +
                 "  \"lastName\": \"Iem\",\n" +
@@ -55,7 +53,7 @@ public class ApiSteps {
                 "}";
 
         response = given()
-                .header("Content-Type" , "application/json")
+                .header("Content-Type", "application/json")
                 .and()
                 .body(requestBody)
                 .when()
@@ -79,7 +77,7 @@ public class ApiSteps {
         RestAssured.baseURI = baseUrl;
         response = given()
                 .with()
-                .queryParam("key","d03e989018msh7f4691c614e87a9p1a8181j" )
+                .queryParam("key", "d03e989018msh7f4691c614e87a9p1a8181j")
                 .when()
                 .delete(path + variables.get("id"))
                 .then()
@@ -95,7 +93,7 @@ public class ApiSteps {
     public void iUpdateExistingStudentWith_idParameterUsingEndPoint(String path) {
         RestAssured.baseURI = baseUrl;
 
-        String updateInfo = "{\"_id\":\""+variables.get("id")+"\"," +
+        String updateInfo = "{\"_id\":\"" + variables.get("id") + "\"," +
                 "\"batch\":6.5,\"firstName\":\"Pinkbox\"," +
                 "\"lastName\":\"Team\"," +
                 "\"email\":\"test1234@test.com\",\"__v\":0}";
@@ -104,7 +102,7 @@ public class ApiSteps {
 
         response = given()
                 .header("Content-type", "application/json")
-                .queryParam("key","d03e989018msh7f4691c614e87a9p1a8181j" )
+                .queryParam("key", "d03e989018msh7f4691c614e87a9p1a8181j")
                 .and()
                 .body(updateInfo)
                 .when()
@@ -115,7 +113,6 @@ public class ApiSteps {
                 .response();
 
         Assert.assertEquals(SC_OK, response.statusCode());
-
     }
 
     @Then("I should see an update existing student")
@@ -135,7 +132,6 @@ public class ApiSteps {
         Assert.assertEquals(SC_OK, response.statusCode());
         System.out.println(response.jsonPath().getString("data"));
     }
-
 
     @Then("Get all dev courses")
     public void getAllDevCourses() {
@@ -164,7 +160,7 @@ public class ApiSteps {
                 "}";
 
         response = given()
-                .header("Content-Type" , "application/json")
+                .header("Content-Type", "application/json")
                 .and()
                 .body(requestBody)
                 .when()
@@ -183,7 +179,6 @@ public class ApiSteps {
         variables = new HashMap<>();
         variables.put("name", devName);
         System.out.println("Variable-========" + variables);
-
     }
 
     @Then("Get all sdet courses")
@@ -214,7 +209,7 @@ public class ApiSteps {
                 "}";
 
         response = given()
-                .header("Content-Type" , "application/json")
+                .header("Content-Type", "application/json")
                 .and()
                 .body(requestBody)
                 .when()
@@ -237,7 +232,7 @@ public class ApiSteps {
 
         response = given()
                 .with()
-                .queryParam("name",variables.get("name"))
+                .queryParam("name", variables.get("name"))
                 .when()
                 .delete(path)
                 .then()
@@ -266,5 +261,46 @@ public class ApiSteps {
         System.out.println("Deleted: " + response.getStatusCode());
         Assert.assertEquals(SC_OK, response.statusCode());
     }
+
+    @Then("I send a GET request with username and password using end point {string}")
+    public void iSendAGETRequestWithUsernameAndPasswordUsingEndPoint(String arg0) {
+
+        RestAssured.baseURI = baseUrl;
+
+        response = given()
+                .auth()
+                .preemptive()
+                .basic("user", "user123")
+                .when()
+                .get(pathToken)
+                .then()
+                .assertThat()
+                .statusCode(SC_OK)
+                .log().all()
+                .extract()
+                .response();
+
+        Assert.assertEquals(SC_OK, response.statusCode());
+    }
+
+    @Then("Verify error message {string} when send invalid credentials")
+    public void verifyErrorMessageWhenSendInvalidCredentials(String arg0) {
+        RestAssured.baseURI = baseUrl;
+
+        response = given()
+                .auth()
+                .basic("user", "user123")
+                .when()
+                .get(pathToken)
+                .then()
+                .assertThat()
+                .statusCode(401)
+                .log().all()
+                .extract()
+                .response();
+        Assert.assertEquals("Valid username and password required",
+                response.jsonPath().getString("message"));
+    }
 }
+
 
