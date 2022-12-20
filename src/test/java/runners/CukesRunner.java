@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
         glue = "step_definitions",
         stepNotifications = true,
         dryRun = false
-        ,tags = "@ASP-35"
+        ,tags = "@ASP-29"
 )
 public class CukesRunner {
 }

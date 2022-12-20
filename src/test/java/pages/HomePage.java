@@ -80,5 +80,8 @@ public class HomePage {
     @FindBy(xpath = "//div[@class='author-information']")
     public static WebElement title;
 
+    @FindBy(xpath= "//*[contains(text(), 'Day in and day out')]")
+    public WebElement headerDescription;
+
 }
 

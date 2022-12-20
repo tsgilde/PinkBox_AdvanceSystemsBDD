@@ -341,8 +341,8 @@ public class HomeSteps implements CommonPage {
         }
     }
 
-    @And("I verify the name and title are displed")
-    public void iVerifyTheNameAndTitleAreDispled() {
+    @And("I verify the name and title are displayed")
+    public void iVerifyTheNameAndTitleAreDisplayed() {
         try {
             Thread.sleep(6000);
         BrowserUtils.isDisplayed(page.title);
@@ -350,6 +350,36 @@ public class HomeSteps implements CommonPage {
             throw new RuntimeException(e);
         }
     }
+
+    @Then("Verify header text {string} is displayed")
+    public void verifyHeaderTextIsDisplayed(String text) {
+
+        BrowserUtils.moveIntoView(page.thinkBigHeader);
+        BrowserUtils.waitForPageLoad();
+        BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(
+                By.xpath(String.format(XPATH_TEMPLATE_TEXT, text))));
+
+    }
+
+    @Then("Verify second header text is {string} is displayed")
+    public void verifySecondHeaderTextIsIsDisplayed(String text) {
+        BrowserUtils.moveIntoView(page.thinkBigHeader);
+        BrowserUtils.waitForPageLoad();
+        BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(
+                By.xpath(String.format(XPATH_TEMPLATE_TEXT, text))));
+        BrowserUtils.waitForPageLoad();
+        BrowserUtils.moveIntoView(page.thinkBigHeader);
+    }
+
+    @And("Verify description text should be displayed under header")
+    public void verifyDescriptionTextShouldBeDisplayedUnderHeader() {
+        BrowserUtils.moveIntoView(page.thinkBigHeader);
+        BrowserUtils.waitForPageLoad();
+        BrowserUtils.isDisplayed(page.headerDescription);
+
+        System.out.println(page.headerDescription.getText());
+    }
+
 }
 
 
