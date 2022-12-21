@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -144,6 +145,16 @@ public class BrowserUtils {
         moveIntoView(element);
         highlightElement(element);
         element.click();
+    }
+
+    public static void actionsClick(WebElement element) {
+        Actions act = new Actions(getDriver());
+        moveIntoView(element);
+        waitForElementVisibility(element);
+        waitForElementClickability(element);
+        highlightElement(element);
+        act.moveToElement(element).click();
+
     }
 
     public static void assertEquals(String actual, String expected) {
@@ -294,6 +305,10 @@ public class BrowserUtils {
                         .equals("complete");
             }
         });
+    }
+
+    public static WebDriver checkDriverStatus() {
+        return driver;
     }
 
 }

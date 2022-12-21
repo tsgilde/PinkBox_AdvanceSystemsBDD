@@ -145,3 +145,10 @@ Feature: Home page tests
       Then I verify the text header "We are Recruitment Experts" in the Expert section
       And I click the button "Our Services"
       Then It should take me to the page "Advance Systems - Services"
+
+  @ASP-18
+  Scenario: Test move to top button
+    When I scroll down to the bottom part of the page
+    And I see the button at the bottom right corner of the page
+    When I click the bottom right corner
+    Then I should see the window move to the top and the button should disappear
