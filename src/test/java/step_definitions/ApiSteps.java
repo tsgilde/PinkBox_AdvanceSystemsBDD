@@ -1,38 +1,84 @@
 package step_definitions;
 
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
+import utils.ConfigReader;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.*;
 
 public class ApiSteps {
-    public static String baseUrl = "https://tla-school-api.herokuapp.com";
-    String path = "/api/school/resources/students";
-    String pathDev = "/api/school/programs/devcourse";
-    String pathSdet = "/api/school/programs/sdetcourse";
-    String pathToken = "/api/school/departments/gettoken";
+    public ApiSteps() {
+
+    }
+   // public static String baseUrl = "https://tla-school-api.herokuapp.com";
+    private static final String pathStudent = "/api/school/resources/students";
+    private static final String pathDev = "/api/school/programs/devcourse";
+    private static final String pathSdet = "/api/school/programs/sdetcourse";
+    private static final String pathToken = "/api/school/departments/gettoken";
     Response response;
     String studentId;
     String devName;
     String sdetName;
     static Map<String, Object> variables;
 
+    @Given("User gets Base URL")
+    public void userGetsBaseURL() {
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
+        //RestAssured.baseURI = baseUrl;
+        System.out.println(RestAssured.baseURI);
+    }
+
+    @When("User send GET request to the endpoint {string}")
+    public void userSendGETRequestToTheEndpoint(String endPoint) {
+        response = RestAssured.given()
+                .when()
+                .get(pathDev)
+                .then()
+                .log().all()
+                .extract()
+                .response();
+        System.out.println(response);
+
+    }
+
+    @Then("User should get status code {int}")
+    public void userShouldGetStatusCode(int statusCode) {
+        Assert.assertEquals(statusCode, response.statusCode());
+    }
+
+    @Then("the response should include fields called {string}, {string} and {string}")
+    public void theResponseShouldIncludeFieldsCalledAnd(String field1, String field2, String field3) {
+        Assert.assertNotNull(response.jsonPath().getString("data." + field1 + "[0]"));
+        Assert.assertNotNull(response.jsonPath().getString("data." + field2 + "[0]"));
+        Assert.assertNotNull(response.jsonPath().getString("data." + field3 + "[0]"));
+    }
+
+    @Then("the response should include following fields")
+    public void theResponseShouldIncludeFollowingFields(List<String> list) {
+        for (int i = 0; i < list.size(); i++) {
+            Assert.assertNotNull(response.jsonPath().getString("data." + list.get(i) + "[0]"));
+        }
+    }
+
     @Then("Get all students")
     public void getAllStudents() {
 
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
         Response response =
                 given()
                         .contentType(ContentType.JSON)
                         .when()
-                        .get(path)
+                        .get(pathStudent)
                         .then()
                         .statusCode(200)
                         .log().all()
@@ -42,9 +88,10 @@ public class ApiSteps {
         Assert.assertEquals(SC_OK, response.statusCode());
     }
 
+
     @Then("I add new student to db with fields using end point {string}")
     public void iAddNewStudentToDbWithFieldsUsingEndPoint(String path) {
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
         String requestBody = "{\n" +
                 "  \"batch\": 6,\n" +
                 "  \"firstName\": \"Anne2222\",\n" +
@@ -74,7 +121,7 @@ public class ApiSteps {
     public void iDeleteExistingStudentWith_idParameterUsingEndPoint(String path) {
         System.out.println("====================");
         System.out.println(variables);
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
         response = given()
                 .with()
                 .queryParam("key", "d03e989018msh7f4691c614e87a9p1a8181j")
@@ -91,7 +138,7 @@ public class ApiSteps {
 
     @Then("I update existing student with _id parameter using end point {string}")
     public void iUpdateExistingStudentWith_idParameterUsingEndPoint(String path) {
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
 
         String updateInfo = "{\"_id\":\"" + variables.get("id") + "\"," +
                 "\"batch\":6.5,\"firstName\":\"Pinkbox\"," +
@@ -117,12 +164,12 @@ public class ApiSteps {
 
     @Then("I should see an update existing student")
     public void iShouldSeeAnUpdateExistingStudent() {
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
         Response response =
                 given()
                         .contentType(ContentType.JSON)
                         .when()
-                        .get(path + "/" + variables.get("id"))
+                        .get(pathStudent + "/" + variables.get("id"))
                         .then()
                         .statusCode(200)
                         .log().all()
@@ -135,7 +182,7 @@ public class ApiSteps {
 
     @Then("Get all dev courses")
     public void getAllDevCourses() {
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
         Response response =
                 given()
                         .contentType(ContentType.JSON)
@@ -152,7 +199,7 @@ public class ApiSteps {
 
     @Then("I add a new dev course to db with fields using endpoint {string}")
     public void iAddANewDevCourseToDbWithFieldsUsingEndpoint(String path) {
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
 
         String requestBody = "{\n" +
                 "  \"duration\": \"6 months .....\",\n" +
@@ -183,7 +230,7 @@ public class ApiSteps {
 
     @Then("Get all sdet courses")
     public void getAllSdetCourses() {
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
 
         Response response =
                 given()
@@ -201,8 +248,8 @@ public class ApiSteps {
 
     @Then("I add a new sdet course to db with fields using endpoint {string}")
     public void iAddANewSdetCourseToDbWithFieldsUsingEndpoint(String path) {
-        RestAssured.baseURI = baseUrl;
 
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
         String requestBody = "{\n" +
                 "  \"duration\": \"2 months .....\",\n" +
                 "  \"name\": \"API..\"\n" +
@@ -228,7 +275,7 @@ public class ApiSteps {
 
     @Then("I delete an existing dev course with name using endpoint {string}")
     public void iDeleteAnExistingDevCourseWithNameUsingEndpoint(String path) {
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
 
         response = given()
                 .with()
@@ -246,7 +293,7 @@ public class ApiSteps {
 
     @Then("I delete an existing sdet course with name using endpoint {string}")
     public void iDeleteAnExistingSdetCourseWithNameUsingEndpoint(String path) {
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
 
         response = given()
                 .with()
@@ -265,7 +312,7 @@ public class ApiSteps {
     @Then("I send a GET request with username and password using end point {string}")
     public void iSendAGETRequestWithUsernameAndPasswordUsingEndPoint(String arg0) {
 
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
 
         response = given()
                 .auth()
@@ -285,7 +332,7 @@ public class ApiSteps {
 
     @Then("Verify error message {string} when send invalid credentials")
     public void verifyErrorMessageWhenSendInvalidCredentials(String arg0) {
-        RestAssured.baseURI = baseUrl;
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
 
         response = given()
                 .auth()

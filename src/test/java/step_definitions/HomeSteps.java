@@ -6,7 +6,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.CommonPage;
@@ -380,6 +383,41 @@ public class HomeSteps implements CommonPage {
         System.out.println(page.headerDescription.getText());
     }
 
+    @When("I scroll down to the bottom part of the page")
+    public void iScrollDownToTheBottomPartOfThePage() {
+        BrowserUtils.moveIntoView(page.scrollTo);
+        BrowserUtils.waitForPageLoad();
+    }
+
+    @And("I see the button at the bottom right corner of the page")
+    public void iSeeTheButtonAtTheBottomRightCornerOfThePage() {
+        BrowserUtils.waitForElementVisibility(page.upArrowBtn);
+        Assert.assertTrue(page.upArrowBtn.isDisplayed());
+    }
+
+    @When("I click the bottom right corner")
+    public void iClickTheBottomRightCorner() {
+        BrowserUtils.waitForElementVisibility(page.upArrowBtn);
+
+        wait = new WebDriverWait(BrowserUtils.getDriver(), 15);
+        wait.until(ExpectedConditions.elementToBeClickable(page.upArrowBtn));
+
+        System.out.println("====Up Arrow Button====");
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        BrowserUtils.actionsClick(page.upArrowBtn);
+    }
+
+    @Then("I should see the window move to the top and the button should disappear")
+    public void iShouldSeeTheWindowMoveToTheTopAndTheButtonShouldDisappear() {
+
+        Assert.assertTrue(!page.upArrowBtn.isDisplayed());
+    }
 }
 
 
