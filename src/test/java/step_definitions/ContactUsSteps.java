@@ -17,6 +17,7 @@ public class ContactUsSteps implements CommonPage {
     }
     @Then("Verify following input fields are displayed:")
     public void verifyFollowingInputFieldsAreDisplayed(List<String> dataTable) {
+        BrowserUtils.waitForPageLoad();
         for(String each: dataTable){
             if (each.equals("Choose Service")) {
                 BrowserUtils.isDisplayed(page.chooseService);
@@ -34,6 +35,7 @@ public class ContactUsSteps implements CommonPage {
 
     @Then("I verify {string} button is displayed")
     public void iVerifyButtonIsDisplayed(String button) {
+        BrowserUtils.waitForPageLoad();
         BrowserUtils.isDisplayed(
                 BrowserUtils.getDriver().findElement(
                         By.xpath(String.format(XPATH_TEMPLATE_BUTTON, button))));

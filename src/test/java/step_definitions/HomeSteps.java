@@ -296,17 +296,20 @@ public class HomeSteps implements CommonPage {
 
     @When("I scroll down the home page I verify navigation options are displayed")
     public void iScrollDownTheHomePageIVerifyNavigationOptionsAreDisplayed() {
+        BrowserUtils.waitForPageLoad();
         BrowserUtils.isDisplayed(page.footerCopyright);
         BrowserUtils.isDisplayed((page.mainMenu));
     }
     @When("I click the navigation {string}")
     public void iClickTheNavigation(String button) {
+        BrowserUtils.waitForPageLoad();
         BrowserUtils.click(BrowserUtils.getDriver().findElement(
                 By.xpath(String.format(XPATH_TEMPLATE_OPTION_TEXT, button))));
     }
 
     @Then("I verify {string}  field is displayed")
     public void iVerifyFieldIsDisplayed(String email) {
+        BrowserUtils.waitForPageLoad();
         BrowserUtils.isDisplayed(
                 BrowserUtils.getDriver().findElement(
                         By.xpath(String.format(XPATH_TEMPLATE_INPUT_FIELD, email)))
