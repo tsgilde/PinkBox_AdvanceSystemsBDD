@@ -152,3 +152,7 @@ Feature: Home page tests
     And I see the button at the bottom right corner of the page
     When I click the bottom right corner
     Then I should see the window move to the top and the button should disappear
+
+  @ASP-19
+  Scenario: Copyright text in the bottom is updated
+    Then I verify if bottom is updated "Copyright  © 2022 Advance Systems LLC. All Rights Reserved."

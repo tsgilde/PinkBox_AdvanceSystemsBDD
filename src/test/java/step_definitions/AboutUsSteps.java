@@ -30,4 +30,17 @@ public class AboutUsSteps implements CommonPage {
         );
 
     }
+
+    @Then("I verify if {string} is display")
+    public void iVerifyIfIsDisplay(String txt) {
+        BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(By.xpath(String.format(XPATH_TEMPLATE_TEXT, txt))));
+    }
+
+    @Then("I verify if subtitle {string},{string},{string} is displayed")
+    public void iVerifyIfSubtitleIsDisplayed(String arg0, String arg1, String arg2) {
+        BrowserUtils.isDisplayed(page.OnTimeText);
+        BrowserUtils.isDisplayed(page.TeamText);
+        BrowserUtils.isDisplayed(page.GoodText);
+
+    }
 }
