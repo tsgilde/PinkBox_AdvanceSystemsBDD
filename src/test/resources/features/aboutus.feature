@@ -13,3 +13,9 @@ Feature: Contact Us Page Tests
     | Interview      |
     | Screening      |
     | Process Done   |
+
+
+  @ASP-30
+  Scenario:There should be a section with header Why Choose Us
+    Then I verify if "Why Choose Us" is display
+    Then I verify if subtitle "On time Services","Experienced Team","Good Track Records" is displayed
