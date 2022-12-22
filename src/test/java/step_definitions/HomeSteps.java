@@ -303,6 +303,13 @@ public class HomeSteps implements CommonPage {
                         By.xpath(String.format(XPATH_TEMPLATE_INPUT_FIELD, email)))
         );
     }
-}
+
+    @Then("I verify if bottom is updated {string}")
+    public void iVerifyIfBottomIsUpdated(String text) {
+        BrowserUtils.assertEquals(text,"Copyright  © 2022 Advance Systems LLC. All Rights Reserved.");
+    }
+
+
+    }
 
 

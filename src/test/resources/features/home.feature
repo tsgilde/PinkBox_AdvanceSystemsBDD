@@ -124,3 +124,7 @@ Feature: Home page tests
     Examples:
       | email input      |
       | Email Address... |
+
+    @ASP-19
+    Scenario: Copyright text in the bottom is updated
+    Then I verify if bottom is updated "Copyright  © 2022 Advance Systems LLC. All Rights Reserved."
