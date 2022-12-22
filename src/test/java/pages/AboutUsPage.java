@@ -12,6 +12,7 @@ public class AboutUsPage {
 
     @FindBy(xpath = "//div[@class='sec-title centered']/h5[text()='About Us']")
     public WebElement aboutUs;
+    
     @FindBy(xpath = "//h3[text()='On Time Services']")
     public WebElement OnTimeText;
 
@@ -20,7 +21,5 @@ public class AboutUsPage {
 
     @FindBy(xpath = "//h3[text()='Good Track Records']")
     public WebElement GoodText;
-
-
 
 }

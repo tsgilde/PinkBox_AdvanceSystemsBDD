@@ -125,6 +125,13 @@ Feature: Home page tests
       | email input      |
       | Email Address... |
 
+  @ASP-18
+  Scenario: Test move to top button
+    When I scroll down to the bottom part of the page
+    And I see the button at the bottom right corner of the page
+    When I click the bottom right corner
+    Then I should see the window move to the top and the button should disappear
+
   @ASP-20
   Scenario: Test main header section
     Then Verify header text "Welcome to Advance Systems LLC." is displayed
@@ -136,8 +143,6 @@ Feature: Home page tests
       Then I click the button "About Us"
       Then I verify the text header "Welcome to Advance Systems LLC."
       And I verify the name and title are displayed
-
-
 
     @ASP-32
     Scenario: I would like to see a header text "we are Recruiting Expeperts" in the page About us

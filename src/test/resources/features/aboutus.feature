@@ -14,7 +14,6 @@ Feature: Contact Us Page Tests
     | Screening      |
     | Process Done   |
 
-
   @ASP-30
   Scenario:There should be a section with header Why Choose Us
     Then I verify if "Why Choose Us" is display
