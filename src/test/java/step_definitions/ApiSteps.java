@@ -7,6 +7,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
+import utils.ConfigReader;
 
 import utils.ConfigReader;
 
@@ -27,8 +28,10 @@ public class ApiSteps {
     private static final String pathDev = "/api/school/programs/devcourse";
     private static final String pathSdet = "/api/school/programs/sdetcourse";
     private static final String pathToken = "/api/school/departments/gettoken";
+
     private static final String pathAdmins = "/api/school/departments/administration/admins";
     String bearerToken;
+
     Response response;
     String studentId;
     String devName;
@@ -38,6 +41,9 @@ public class ApiSteps {
     @Given("User gets Base URL")
     public void userGetsBaseURL() {
         RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
+
+        //RestAssured.baseURI = baseUrl;
+
         System.out.println(RestAssured.baseURI);
     }
 
