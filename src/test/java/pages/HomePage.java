@@ -83,5 +83,17 @@ public class HomePage {
     @FindBy(xpath= "//*[contains(text(), 'Day in and day out')]")
     public WebElement headerDescription;
 
+    @FindBy(xpath = "//*[text()='Welcome to Advance Systems LLC.']")
+    public WebElement scrollTo;
+
+    @FindBy(xpath = "//div[@class='scroll-to-top scroll-to-target']")
+    public WebElement upArrowBtn;
+
+    @FindBy(className = "//div[@class='socail-icon-area']")
+    public WebElement scrollUp;
+
+
+
+
 }
 

@@ -1,4 +1,19 @@
 Feature: Api tests
+  Background: URL
+    Given User gets Base URL
+
+  @ASP-21
+  Scenario: GET existing courses
+    When User send GET request to the endpoint "/programs/devcourse"
+    Then User should get status code 200
+    When User send GET request to the endpoint "/programs/sdetcourse"
+    Then User should get status code 200
+#    Then the response should include fields called "_id", "name" and "duration"
+    Then the response should include following fields
+      | "_id"       |
+      | "name"     |
+      | "duration" |
+
 
   @ASP-22a
   Scenario: Performing POST request for adding a new dev course to DB
