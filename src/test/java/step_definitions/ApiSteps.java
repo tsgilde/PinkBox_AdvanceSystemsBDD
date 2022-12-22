@@ -7,12 +7,14 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
+
 import utils.ConfigReader;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.*;
 
@@ -25,6 +27,8 @@ public class ApiSteps {
     private static final String pathDev = "/api/school/programs/devcourse";
     private static final String pathSdet = "/api/school/programs/sdetcourse";
     private static final String pathToken = "/api/school/departments/gettoken";
+    private static final String pathAdmins = "/api/school/departments/administration/admins";
+    String bearerToken;
     Response response;
     String studentId;
     String devName;
@@ -34,7 +38,6 @@ public class ApiSteps {
     @Given("User gets Base URL")
     public void userGetsBaseURL() {
         RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
-        //RestAssured.baseURI = baseUrl;
         System.out.println(RestAssured.baseURI);
     }
 
@@ -309,6 +312,24 @@ public class ApiSteps {
         Assert.assertEquals(SC_OK, response.statusCode());
     }
 
+    public String token(){
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
+
+        return RestAssured.given()
+                .auth()
+                .preemptive()
+                .basic("user", "user123")
+                .when()
+                .get(pathToken)
+                .then()
+                .assertThat()
+                .statusCode(SC_OK)
+                .log().all()
+                .extract()
+                .jsonPath()// Navigate using jsonPath
+                .get("token"); // Get the value as a key token
+
+    }
     @Then("I send a GET request with username and password using end point {string}")
     public void iSendAGETRequestWithUsernameAndPasswordUsingEndPoint(String arg0) {
 
@@ -328,6 +349,10 @@ public class ApiSteps {
                 .response();
 
         Assert.assertEquals(SC_OK, response.statusCode());
+
+        variables = new HashMap<>();
+
+        variables.put("token", response.jsonPath().getString("token"));
     }
 
     @Then("Verify error message {string} when send invalid credentials")
@@ -347,6 +372,41 @@ public class ApiSteps {
                 .response();
         Assert.assertEquals("Valid username and password required",
                 response.jsonPath().getString("message"));
+    }
+
+    @Then("I add new information to DB using endpoint {string}")
+    public void iAddNewInformationToDBUsingEndpoint(String arg0) {
+
+        RestAssured.baseURI = ConfigReader.readProperty("BASE_URL");
+
+        String requestBody = "{\n" +
+                "  \"firstName\": \"pinkbox\",\n" +
+                "  \"lastName\": \"team\",\n" +
+                "  \"phoneNumber\": \"123-456-7890\",\n" +
+                "  \"email\": \"pinkbox@team666.com\"\n" +
+                "}";
+
+        response = given()
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + variables.get("token"))
+                .and()
+                .body(requestBody)
+                .when()
+                .post(pathAdmins)
+                .then().log().all()
+                .extract()
+                .response();
+
+        Assert.assertEquals(SC_OK, response.statusCode());
+    }
+
+    @Then("The response should contain following fields:")
+    public void theResponseShouldContainFollowingFields(List<String> list) {
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(response.jsonPath().getString("data." + list.get(i)));
+            Assert.assertNotNull(response.jsonPath().getString("data." + list.get(i) + "[0]"));
+        }
     }
 }
 
