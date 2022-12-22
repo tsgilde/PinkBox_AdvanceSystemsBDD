@@ -241,14 +241,10 @@ public class HomeSteps implements CommonPage {
         try {
             String contact = BrowserUtils.getDriver().findElement(By.xpath(
                     String.format(page.footerContact, text))).getText();
-            Thread.sleep(6000);
-
+            Thread.sleep(8000);
             BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(By.xpath(
                     String.format(page.footerContact, text))));
-
             BrowserUtils.assertTrue(contact.contains(text));
-
-
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
