@@ -132,6 +132,10 @@ Feature: Home page tests
     When I click the bottom right corner
     Then I should see the window move to the top and the button should disappear
 
+  @ASP-19
+  Scenario: Copyright text in the bottom is updated
+    Then I verify if bottom is updated "Copyright  © 2022 Advance Systems LLC. All Rights Reserved."
+
   @ASP-20
   Scenario: Test main header section
     Then Verify header text "Welcome to Advance Systems LLC." is displayed
@@ -151,13 +155,3 @@ Feature: Home page tests
       And I click the button "Our Services"
       Then It should take me to the page "Advance Systems - Services"
 
-  @ASP-18
-  Scenario: Test move to top button
-    When I scroll down to the bottom part of the page
-    And I see the button at the bottom right corner of the page
-    When I click the bottom right corner
-    Then I should see the window move to the top and the button should disappear
-
-  @ASP-19
-  Scenario: Copyright text in the bottom is updated
-    Then I verify if bottom is updated "Copyright  © 2022 Advance Systems LLC. All Rights Reserved."

@@ -427,8 +427,6 @@ public class HomeSteps implements CommonPage {
         Assert.assertTrue(!page.upArrowBtn.isDisplayed());
     }
 
-}
-
 
     @Then("I verify if bottom is updated {string}")
     public void iVerifyIfBottomIsUpdated(String text) {
