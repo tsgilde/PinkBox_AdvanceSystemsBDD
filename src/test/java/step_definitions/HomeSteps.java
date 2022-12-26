@@ -49,6 +49,7 @@ public class HomeSteps implements CommonPage {
 
         }
     }
+
     @Then("Verify Header is displayed")
     public void verifyHeaderIsDisplayed() {
         BrowserUtils.isDisplayed(page.careerHeader);
@@ -59,6 +60,7 @@ public class HomeSteps implements CommonPage {
         System.out.println(page.thinkBigHeader.getText());
 
     }
+
     @Then("Verify description is displayed")
     public void verify_description_is_displayed() {
 
@@ -69,6 +71,7 @@ public class HomeSteps implements CommonPage {
         System.out.println(page.careerDescription.getText());
 
     }
+
     @Then("Verify if page refresh every {int}{int} seconds")
     public void verifyIfPageRefreshEverySeconds(int arg0, int arg1) {
 
@@ -76,6 +79,7 @@ public class HomeSteps implements CommonPage {
         BrowserUtils.isDisplayed(page.thinkBigHeader);
 
     }
+
     @Then("User clicks READ MORE button and Verify services page is opened")
     public void userClicksREADMOREButtonAndVerifyServicesPageIsOpened() {
 
@@ -93,7 +97,6 @@ public class HomeSteps implements CommonPage {
         }
         Assert.assertTrue(BrowserUtils.getDriver().getTitle().contains("Services"));
     }
-
     @Then("Verify header text is {string}")
     public void verifyHeaderTextIs(String url) {
         BrowserUtils.assertEquals(BrowserUtils.getDriver().getTitle(), url);
@@ -125,7 +128,6 @@ public class HomeSteps implements CommonPage {
             System.out.println(each.getText());
         }
     }
-
     @Then("I verify {string}  section is displayed")
     public void iVerifySectionIsDisplayed(String header) {
         try {
@@ -240,14 +242,17 @@ public class HomeSteps implements CommonPage {
 
     @When("Verify {string} info is displayed in the footer section:")
     public void verifyInfoIsDisplayedInTheFooterSection(String text) {
-
         try {
             String contact = BrowserUtils.getDriver().findElement(By.xpath(
                     String.format(page.footerContact, text))).getText();
-            Thread.sleep(8000);
+            Thread.sleep(6000);
+
             BrowserUtils.isDisplayed(BrowserUtils.getDriver().findElement(By.xpath(
                     String.format(page.footerContact, text))));
+
             BrowserUtils.assertTrue(contact.contains(text));
+
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
