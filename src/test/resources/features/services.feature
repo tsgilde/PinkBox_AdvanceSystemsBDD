@@ -20,7 +20,7 @@ Feature: Services Page Tests
 
         @ASP-37
         Scenario: Each Divion page should have following:
-          Then I click in each Divion and verify header, main image, description and a quote
+          Then I click in each Divion and verify header, main image, description and a Text quote
 
 
 

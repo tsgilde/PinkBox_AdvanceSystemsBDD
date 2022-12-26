@@ -56,8 +56,8 @@ public class ServicesSteps implements CommonPage {
         }
     }
 
-    @Then("I click in each Divion and verify header, main image, description and a quote")
-    public void iClickInEachDivionAndVerifyHeaderMainImageDescriptionAndAQuote() {
+    @Then("I click in each Divion and verify header, main image, description and a Text quote")
+    public void iClickInEachDivionAndVerifyHeaderMainImageDescriptionAndATextQuote() {
         List<WebElement> each = BrowserUtils.getDriver().findElements(By.xpath("//h4"));
         for (WebElement list : each) {
             try {
