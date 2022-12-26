@@ -95,7 +95,6 @@ public class HomeSteps implements CommonPage {
         }
         Assert.assertTrue(BrowserUtils.getDriver().getTitle().contains("Services"));
     }
-
     @Then("Verify header text is {string}")
     public void verifyHeaderTextIs(String url) {
         BrowserUtils.assertEquals(BrowserUtils.getDriver().getTitle(), url);
@@ -127,7 +126,6 @@ public class HomeSteps implements CommonPage {
             System.out.println(each.getText());
         }
     }
-
     @Then("I verify {string}  section is displayed")
     public void iVerifySectionIsDisplayed(String header) {
         try {
@@ -244,7 +242,6 @@ public class HomeSteps implements CommonPage {
 
     @When("Verify {string} info is displayed in the footer section:")
     public void verifyInfoIsDisplayedInTheFooterSection(String text) {
-
         try {
             String contact = BrowserUtils.getDriver().findElement(By.xpath(
                     String.format(page.footerContact, text))).getText();
