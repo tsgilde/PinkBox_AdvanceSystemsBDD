@@ -11,4 +11,13 @@ public class ServicesPage {
     }
     @FindBy(xpath = "//h1")
     public WebElement title;
+    @FindBy(xpath = "//div[@class='image']")
+    public WebElement img;
+
+    @FindBy(xpath = "//div[@class='text']/p")
+    public WebElement textRow;
+
+    @FindBy(xpath = "//div[@class='text']//div[1]")
+    public WebElement quoteContent;
+
 }

@@ -55,3 +55,12 @@ Feature: Api tests
   Scenario: Performing GET request to retrieve bearer token
     Then I send a GET request with username and password using end point "/api/school/departments/gettoken"
     Then Verify error message "Valid username and password required" when send invalid credentials
+
+  @ASP-28
+  Scenario: Performing POST request to create endpoint to store admin information in DB.
+    Then I send a GET request with username and password using end point "/api/school/departments/gettoken"
+    Then I add new information to DB using endpoint "/api/school/departments/administration/admins"
+    Then The response should contain following fields:
+      | "firstName" |
+      | "lastName"  |
+      | "email"     |

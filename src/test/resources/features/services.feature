@@ -18,4 +18,9 @@ Feature: Services Page Tests
       Scenario: should be enable user navigate throught each existing division and go back to Services
         Then I click in the in ech division and go back to services
 
+        @ASP-37
+        Scenario: Each Divion page should have following:
+          Then I click in each Divion and verify header, main image, description and a quote
+
+
 

@@ -25,10 +25,10 @@ public class HomeSteps implements CommonPage {
     HomePage page;
 
     WebDriverWait wait;
-    
+
     public HomeSteps() {
         page = new HomePage();
-       }
+    }
 
     @Given("I open url to homepage")
     public void iOpenUrlOfHomepage() {
@@ -43,7 +43,7 @@ public class HomeSteps implements CommonPage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        for(WebElement list : each){
+        for (WebElement list : each) {
             BrowserUtils.isDisplayed(list);
             System.out.println(list.getText());
 
@@ -85,13 +85,11 @@ public class HomeSteps implements CommonPage {
 
         if (page.readMoreBtn.isDisplayed()) {
             page.readMoreBtn.click();
-        }
-        else {
+        } else {
             try {
                 Thread.sleep(2000);
                 page.readMoreBtn.click();
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -142,6 +140,7 @@ public class HomeSteps implements CommonPage {
                 )
         );
     }
+
     @Then("Then Verify following input fields are displayed:")
     public void thenVerifyFollowingInputFieldsAreDisplayed() {
         BrowserUtils.isDisplayed(page.socialMediabtn);
@@ -157,6 +156,7 @@ public class HomeSteps implements CommonPage {
         BrowserUtils.switchToNewWindow();
         BrowserUtils.assertEquals(BrowserUtils.getDriver().getCurrentUrl(), URL);
     }
+
     @Then("Verify company names is displayed in {int} row.")
     public void verifyCompanyNamesIsDisplayedInRow(int arg0) {
         try {
@@ -269,9 +269,9 @@ public class HomeSteps implements CommonPage {
         try {
             Thread.sleep(6000);
 
-        BrowserUtils.click(BrowserUtils.getDriver().findElement(
-                By.xpath(String.format(XPATH_TEMPLATE_TEXT, jnBtn))
-        ));
+            BrowserUtils.click(BrowserUtils.getDriver().findElement(
+                    By.xpath(String.format(XPATH_TEMPLATE_TEXT, jnBtn))
+            ));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -301,6 +301,7 @@ public class HomeSteps implements CommonPage {
         BrowserUtils.isDisplayed(page.footerCopyright);
         BrowserUtils.isDisplayed((page.mainMenu));
     }
+
     @When("I click the navigation {string}")
     public void iClickTheNavigation(String button) {
         BrowserUtils.waitForPageLoad();
@@ -321,9 +322,9 @@ public class HomeSteps implements CommonPage {
     public void iVerifyTheTextHeaderInTheExpertSection(String text) {
         try {
             Thread.sleep(6000);
-        BrowserUtils.isDisplayed(
-                BrowserUtils.getDriver().findElement(
-                        By.xpath(String.format(XPATH_TEMPLATE_TEXT, text))));
+            BrowserUtils.isDisplayed(
+                    BrowserUtils.getDriver().findElement(
+                            By.xpath(String.format(XPATH_TEMPLATE_TEXT, text))));
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -340,9 +341,9 @@ public class HomeSteps implements CommonPage {
     public void iVerifyTheTextHeader(String text) {
         try {
             Thread.sleep(6000);
-        BrowserUtils.isDisplayed(
-                BrowserUtils.getDriver().findElement(
-                        By.xpath(String.format(XPATH_TEMPLATE_TEXT, text))));
+            BrowserUtils.isDisplayed(
+                    BrowserUtils.getDriver().findElement(
+                            By.xpath(String.format(XPATH_TEMPLATE_TEXT, text))));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -352,7 +353,7 @@ public class HomeSteps implements CommonPage {
     public void iVerifyTheNameAndTitleAreDisplayed() {
         try {
             Thread.sleep(6000);
-        BrowserUtils.isDisplayed(page.title);
+            BrowserUtils.isDisplayed(page.title);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -422,6 +423,14 @@ public class HomeSteps implements CommonPage {
 
         Assert.assertTrue(!page.upArrowBtn.isDisplayed());
     }
-}
+
+
+    @Then("I verify if bottom is updated {string}")
+    public void iVerifyIfBottomIsUpdated(String text) {
+        BrowserUtils.assertEquals(text, "Copyright  © 2022 Advance Systems LLC. All Rights Reserved.");
+        }
+
+    }
+
 
 
